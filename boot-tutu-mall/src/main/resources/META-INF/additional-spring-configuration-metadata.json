@@ -1,0 +1,89 @@
+{
+  "properties": [
+    {
+      "name": "base.window_base_path",
+      "type": "java.lang.String",
+      "description": "Description for base.window_base_path."
+    },
+    {
+      "name": "base.linuxBasePath",
+      "type": "java.lang.String",
+      "description": "Description for base.linuxBasePath."
+    },
+    {
+      "name": "base.shopPath",
+      "type": "java.lang.String",
+      "description": "Description for base.shopPath."
+    },
+    {
+      "name": "spring.mvc.static-locations",
+      "type": "java.lang.String",
+      "description": "Description for spring.mvc.static-locations."
+    },
+    {
+      "name": "base.shopCategoryPath",
+      "type": "java.lang.String",
+      "description": "Description for base.shopCategoryPath."
+    },
+    {
+      "name": "base.headLinePath",
+      "type": "java.lang.String",
+      "description": "Description for base.headLinePath."
+    },
+    {
+      "name": "base.userPath",
+      "type": "java.lang.String",
+      "description": "Description for base.userPath."
+    },
+    {
+      "name": "wechat",
+      "type": "java.lang.String",
+      "description": "Description for wechat."
+    },
+    {
+      "name": "wechat.appid",
+      "type": "java.lang.String",
+      "description": "Description for wechat.appid."
+    },
+    {
+      "name": "wechat.appsecret",
+      "type": "java.lang.String",
+      "description": "Description for wechat.appsecret."
+    },
+    {
+      "name": "wechat.prefix",
+      "type": "java.lang.String",
+      "description": "Description for wechat.prefix."
+    },
+    {
+      "name": "wechat.middle",
+      "type": "java.lang.String",
+      "description": "Description for wechat.middle."
+    },
+    {
+      "name": "wechat.auth.url",
+      "type": "java.lang.String",
+      "description": "Description for wechat.auth.url."
+    },
+    {
+      "name": "wechat.exchange.url",
+      "type": "java.lang.String",
+      "description": "Description for wechat.exchange.url."
+    },
+    {
+      "name": "wechat.productmap.url",
+      "type": "java.lang.String",
+      "description": "Description for wechat.productmap.url."
+    },
+    {
+      "name": "wechat.suffix",
+      "type": "java.lang.String",
+      "description": "Description for wechat.suffix."
+    },
+    {
+      "name": "wechat.login.url",
+      "type": "java.lang.String",
+      "description": "Description for wechat.login.url."
+    }
+  ]
+}
