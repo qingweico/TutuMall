@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2022-02-20
 .DS_Store
 node_modules
 /dist
@@ -15,13 +18,18 @@ yarn-error.log*
 pnpm-debug.log*
 
 # Editor directories and files
+<<<<<<< HEAD
 ../.idea
+=======
+.idea
+>>>>>>> 2022-02-20
 .vscode
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+<<<<<<< HEAD
 =======
 HELP.md
 /target/
@@ -57,4 +65,6 @@ build/
 
 ### VS Code ###
 .vscode/
+>>>>>>> 2022-02-20
+=======
 >>>>>>> 2022-02-20
