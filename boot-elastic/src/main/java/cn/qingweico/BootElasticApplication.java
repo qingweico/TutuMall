@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author zqw
+ * @date 2020/11/8
  */
 @SpringBootApplication
 public class BootElasticApplication {
