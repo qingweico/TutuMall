@@ -4,7 +4,7 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/11/21
  */
 public class JedisPoolWriter {

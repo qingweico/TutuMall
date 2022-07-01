@@ -6,16 +6,16 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.3.4.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>cn.qingweico</groupId>
 	<artifactId>boot-tutu-mall</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>boot-tutu-mall</name>
-	<description>A mall project for Spring Boot</description>
+	<description>A simple mall project for Spring Boot</description>
 	<packaging>war</packaging>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 	</properties>
 	<dependencies>
 		<!-- logback日志 -->
@@ -23,7 +23,7 @@
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 		</dependency>
-		<!-- Servlet web -->
+		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -76,7 +76,7 @@
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 		</dependency>
-		<!-- mybatis整合SpringBoot -->
+		<!-- MyBatis整合SpringBoot -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
@@ -114,7 +114,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!--使用新浪的短链接服务生成短链接-->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
@@ -151,7 +150,7 @@
 			<artifactId>okhttp</artifactId>
 			<version>3.9.1</version>
 		</dependency>
-		<!-- google的json解析工具 -->
+		<!-- Gson -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
@@ -186,7 +185,6 @@
 			<version>0.9.1</version>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -195,5 +193,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
