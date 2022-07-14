@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/16
  */
 
@@ -21,14 +21,6 @@ public interface UserDao {
      * @return 用户信息列表
      */
     List<User> queryUserList(@Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
-
-    /**
-     * 根据查询条件返回总数,配合queryUserList使用
-     *
-     * @return count
-     */
-    int queryUserCount();
-
     /**
      * 通过用户Id查询用户
      *

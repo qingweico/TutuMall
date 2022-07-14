@@ -1,10 +1,9 @@
 package cn.qingweico.enums;
-
 /**
  * 系统全局状态
  *
- * @author:qiming
- * @date: 2021/11/11
+ * @author zqw
+ * @date 2021/11/11
  */
 public enum GlobalStatusEnum {
     /**
@@ -19,5 +18,9 @@ public enum GlobalStatusEnum {
     GlobalStatusEnum(String type, Integer val) {
         this.type = type;
         this.val = val;
+    }
+
+    public Integer getVal() {
+        return val;
     }
 }

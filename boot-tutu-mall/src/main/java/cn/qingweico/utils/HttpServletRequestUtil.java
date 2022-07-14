@@ -1,9 +1,12 @@
 package cn.qingweico.utils;
 
+import io.netty.util.internal.StringUtil;
+import org.apache.commons.lang.StringUtils;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/9/15
  */
 public class HttpServletRequestUtil {
@@ -37,7 +40,7 @@ public class HttpServletRequestUtil {
             if (result != null) {
                 result = result.trim();
             }
-            if ("".equals(result)) {
+            if (StringUtils.EMPTY.equals(result)) {
                 return null;
             }
             return result;

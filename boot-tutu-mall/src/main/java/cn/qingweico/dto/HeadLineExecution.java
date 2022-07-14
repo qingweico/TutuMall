@@ -2,14 +2,15 @@ package cn.qingweico.dto;
 
 import cn.qingweico.entity.HeadLine;
 import cn.qingweico.enums.HeadLineStateEnum;
+import lombok.Data;
 
 import java.util.List;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/11/13
  */
-
+@Data
 public class HeadLineExecution {
     /**
      * 结果状态
@@ -36,9 +37,6 @@ public class HeadLineExecution {
      */
     private List<HeadLine> headLineList;
 
-    public HeadLineExecution() {
-    }
-
     /**
      * 操作头条失败时返回的构造器
      *
@@ -60,57 +58,4 @@ public class HeadLineExecution {
         this.stateInfo = stateEnum.getStateInfo();
         this.headLine = headLine;
     }
-
-    /**
-     * 批量操作头条成功时返回的构造器
-     *
-     * @param stateEnum    HeadLineStateEnum
-     * @param headLineList List<HeadLine>
-     */
-    public HeadLineExecution(HeadLineStateEnum stateEnum, List<HeadLine> headLineList) {
-        this.state = stateEnum.getState();
-        this.stateInfo = stateEnum.getStateInfo();
-        this.headLineList = headLineList;
-    }
-
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    public String getStateInfo() {
-        return stateInfo;
-    }
-
-    public void setStateInfo(String stateInfo) {
-        this.stateInfo = stateInfo;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public HeadLine getHeadLine() {
-        return headLine;
-    }
-
-    public void setHeadLine(HeadLine headLine) {
-        this.headLine = headLine;
-    }
-
-    public List<HeadLine> getHeadLineList() {
-        return headLineList;
-    }
-
-    public void setHeadLineList(List<HeadLine> headLineList) {
-        this.headLineList = headLineList;
-    }
-
 }

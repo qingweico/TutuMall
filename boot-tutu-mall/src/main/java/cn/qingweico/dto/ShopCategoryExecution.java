@@ -2,14 +2,15 @@ package cn.qingweico.dto;
 
 import cn.qingweico.entity.ShopCategory;
 import cn.qingweico.enums.ShopCategoryStateEnum;
+import lombok.Data;
 
 import java.util.List;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/11/13
  */
-
+@Data
 public class ShopCategoryExecution {
     /**
      * 结果状态
@@ -23,13 +24,7 @@ public class ShopCategoryExecution {
 
     private ShopCategory shopCategory;
 
-    /**
-     * 操作的商铺类别
-     */
     private List<ShopCategory> shopCategoryList;
-
-    public ShopCategoryExecution() {
-    }
 
     public ShopCategoryExecution(ShopCategoryStateEnum stateEnum) {
         this.state = stateEnum.getState();
@@ -47,37 +42,4 @@ public class ShopCategoryExecution {
         this.stateInfo = stateEnum.getStateInfo();
         this.shopCategoryList = shopCategoryList;
     }
-
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    public String getStateInfo() {
-        return stateInfo;
-    }
-
-    public void setStateInfo(String stateInfo) {
-        this.stateInfo = stateInfo;
-    }
-
-    public ShopCategory getShopCategory() {
-        return shopCategory;
-    }
-
-    public void setShopCategory(ShopCategory shopCategory) {
-        this.shopCategory = shopCategory;
-    }
-
-    public List<ShopCategory> getShopCategoryList() {
-        return shopCategoryList;
-    }
-
-    public void setShopCategoryList(List<ShopCategory> shopCategoryList) {
-        this.shopCategoryList = shopCategoryList;
-    }
-
 }

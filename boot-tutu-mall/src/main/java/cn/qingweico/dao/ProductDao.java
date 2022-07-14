@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/11
  */
 @Repository
@@ -21,14 +21,6 @@ public interface ProductDao {
      * @return 商品列表
      */
     List<Product> queryProductList(@Param("productCondition") Product productCondition, @Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
-
-    /**
-     * 查询对应的商品总数
-     *
-     * @param productCondition 查询条件
-     * @return 商品总数
-     */
-    int queryProductCount(@Param("productCondition") Product productCondition);
 
     /**
      * 添加新的商品

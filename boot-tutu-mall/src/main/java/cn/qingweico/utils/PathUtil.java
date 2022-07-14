@@ -62,7 +62,7 @@ public class PathUtil {
         return path;
     }
 
-    public static String getShopImagePath(Integer shopId) {
+    public static String getShopImagePath(Long shopId) {
         String imagePath = shopPath + shopId + SEPARATOR;
         return imagePath.replace("/", SEPARATOR);
     }

@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/8
  */
 public interface ProductSellDailyService {

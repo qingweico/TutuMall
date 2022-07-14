@@ -1,5 +1,6 @@
 package cn.qingweico.controller.frontend;
 
+import cn.qingweico.common.Result;
 import cn.qingweico.dto.ShopExecution;
 import cn.qingweico.entity.Area;
 import cn.qingweico.entity.Shop;
@@ -8,8 +9,6 @@ import cn.qingweico.service.AreaService;
 import cn.qingweico.service.ShopCategoryService;
 import cn.qingweico.service.ShopService;
 import cn.qingweico.utils.HttpServletRequestUtil;
-import cn.qingweico.utils.JsonResult;
-import cn.qingweico.utils.ResponseStatusEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +20,14 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * @author 周庆伟
+ * -------------- 主页店铺列表 --------------
+ *
+ * @author zqw
  * @date 2020/10/03
  */
 @Slf4j
 @RestControllerAdvice
-@RequestMapping("/frontend")
+@RequestMapping("/u/shop")
 public class ShopListController {
 
     @Resource
@@ -40,40 +41,27 @@ public class ShopListController {
      * 店铺列表
      *
      * @param request HttpServletRequest
-     * @return JsonResult
+     * @return Result
      */
-    @GetMapping("/listShopsPageInfo")
-    public JsonResult listShopsPageInfo(HttpServletRequest request) {
-        int parentId = HttpServletRequestUtil.getInteger(request, "parentId");
-        HashMap<String, Object> map = new HashMap<>(5);
-        List<ShopCategory> shopCategoryList = null;
+    @GetMapping("/list")
+    public Result listShopsPageInfo(HttpServletRequest request) {
+        long parentId = HttpServletRequestUtil.getLong(request, "parentId");
+        HashMap<String, Object> map = new HashMap<>(2);
+        List<ShopCategory> shopCategoryList;
         if (parentId != -1) {
-            try {
-                ShopCategory shopCategoryCondition = new ShopCategory();
-                ShopCategory parent = new ShopCategory();
-                parent.setShopCategoryId(parentId);
-                shopCategoryCondition.setParent(parent);
-                shopCategoryList = shopCategoryService.getShopCategoryList(shopCategoryCondition);
-            } catch (Exception e) {
-                log.error(e.getMessage());
-                return JsonResult.errorCustom(ResponseStatusEnum.SYSTEM_ERROR);
-            }
+            ShopCategory shopCategoryCondition = new ShopCategory();
+            ShopCategory parent = new ShopCategory();
+            parent.setId(parentId);
+            shopCategoryCondition.setParent(parent);
+            shopCategoryList = shopCategoryService.getShopCategoryList(shopCategoryCondition);
         } else {
-            try {
-                shopCategoryList = shopCategoryService.getShopCategoryList(null);
-            } catch (Exception e) {
-                map.put("success", false);
-            }
+            shopCategoryList = shopCategoryService.getShopCategoryList(null);
         }
         map.put("shopCategoryList", shopCategoryList);
         List<Area> areaList;
-        try {
-            areaList = areaService.getAreaList();
-            map.put("areaList", areaList);
-            return JsonResult.ok(map);
-        } catch (Exception e) {
-            return JsonResult.error();
-        }
+        areaList = areaService.getAreaList();
+        map.put("areaList", areaList);
+        return Result.ok(map);
     }
 
     /**
@@ -83,23 +71,20 @@ public class ShopListController {
      * @return Map
      */
     @GetMapping("/listShops")
-    public JsonResult listShops(HttpServletRequest request) {
-        int pageIndex = HttpServletRequestUtil.getInteger(request, "pageIndex");
+    public Result listShops(HttpServletRequest request) {
+        int page = HttpServletRequestUtil.getInteger(request, "page");
         int pageSize = HttpServletRequestUtil.getInteger(request, "pageSize");
-        if (pageIndex > -1 && pageSize > -1) {
+        if (page > -1 && pageSize > -1) {
             int parentId = HttpServletRequestUtil.getInteger(request, "parentId");
             int shopCategoryId = HttpServletRequestUtil.getInteger(request, "shopCategoryId");
             int areaId = HttpServletRequestUtil.getInteger(request, "areaId");
             String shopName = HttpServletRequestUtil.getString(request, "shopName");
-            Shop shopCondition = compactShopCondition4Search(parentId, shopCategoryId, areaId, shopName);
-            ShopExecution shopExecution = shopService.getShopList(shopCondition, pageIndex, pageSize);
-            HashMap<String, Object> map = new HashMap<>(5);
-            map.put("shopList", shopExecution.getShopList());
-            map.put("count", shopExecution.getCount());
-            return JsonResult.ok(map);
-        } else {
-            return JsonResult.errorCustom(ResponseStatusEnum.REQUEST_PARAM_ERROR);
+            Shop shopCondition = compactShopCondition(parentId, shopCategoryId, areaId, shopName);
+            ShopExecution shopExecution = shopService.getShopList(shopCondition, page, pageSize);
+            return Result.ok(shopExecution.getShopList());
         }
+        log.error("page: {}, pageSize: {}", page, pageSize);
+        return Result.error();
     }
 
     /**
@@ -111,27 +96,25 @@ public class ShopListController {
      * @param shopName       店铺名称
      * @return Shop
      */
-    public Shop compactShopCondition4Search(int parentId, int shopCategoryId, int areaId, String shopName) {
+    public Shop compactShopCondition(long parentId, long shopCategoryId, long areaId, String shopName) {
         Shop shopCondition = new Shop();
         if (parentId != -1) {
             ShopCategory childCategory = new ShopCategory();
             ShopCategory parentCategory = new ShopCategory();
-            parentCategory.setShopCategoryId(parentId);
+            parentCategory.setId(parentId);
             childCategory.setParent(parentCategory);
             shopCondition.setShopCategory(childCategory);
         }
         if (shopCategoryId != -1) {
             ShopCategory shopCategory = new ShopCategory();
-            shopCategory.setShopCategoryId(shopCategoryId);
+            shopCategory.setId(shopCategoryId);
             shopCondition.setShopCategory(shopCategory);
         }
         if (areaId != -1) {
-            Area area = new Area();
-            area.setAreaId(areaId);
-            shopCondition.setArea(area);
+            shopCondition.setAreaId(areaId);
         }
         if (shopName != null) {
-            shopCondition.setShopName(shopName);
+            shopCondition.setName(shopName);
         }
         shopCondition.setEnableStatus(1);
         return shopCondition;

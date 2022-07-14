@@ -6,14 +6,10 @@ import cn.qingweico.entity.Area;
 import java.util.List;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/09/15
  */
-public interface AreaService {
-    /**
-     * 区域信息缓存的key
-     */
-    String AREA_LIST_KEY = "areaList";
+public interface AreaService{
 
     /**
      * 获取所有的区域信息列表的业务
@@ -44,7 +40,7 @@ public interface AreaService {
      * @param areaId 区域id
      * @return AreaExecution
      */
-    AreaExecution getAreaById(Integer areaId);
+    AreaExecution getAreaById(Long areaId);
 
     /**
      * 根据区域id删除区域信息
@@ -52,5 +48,5 @@ public interface AreaService {
      * @param areaId 区域id
      * @return AreaExecution
      */
-    AreaExecution deleteAreaById(Integer areaId);
+    AreaExecution deleteAreaById(Long areaId);
 }

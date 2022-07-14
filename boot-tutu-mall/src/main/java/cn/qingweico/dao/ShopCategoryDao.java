@@ -7,21 +7,21 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/15
  */
 @Repository
 public interface ShopCategoryDao {
     /**
-     * 查询店铺列表
+     * 查询店铺类别列表
      *
      * @param shopCategoryCondition 查询条件
-     * @return 店铺列表
+     * @return 店铺类别列表
      */
     List<ShopCategory> queryShopCategory(@Param("shopCategoryCondition") ShopCategory shopCategoryCondition);
 
     /**
-     * 通过Id返回唯一的店铺类别信息
+     * 通过id返回唯一的店铺类别信息
      *
      * @param shopCategoryId 店铺类别id
      * @return ShopCategory
@@ -29,7 +29,7 @@ public interface ShopCategoryDao {
     ShopCategory queryShopCategoryById(long shopCategoryId);
 
     /**
-     * 根据传入的id列表查询店铺类别信息(供超级管理员选定删除类别的时候用,主要是处理图片)
+     * 根据传入的id列表查询店铺类别信息
      *
      * @param shopCategoryIdList 店铺类别id集合
      * @return 店铺类别集合

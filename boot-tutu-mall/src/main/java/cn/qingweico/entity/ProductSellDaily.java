@@ -1,18 +1,21 @@
 package cn.qingweico.entity;
 
+import lombok.Data;
+
 import java.util.Date;
 
 /**
- * 顾客消费的商品映射
+ * 商品的日销售量
  *
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/18
  */
+@Data
 public class ProductSellDaily {
     /**
      * 主键id
      */
-    private Long productSellDailyId;
+    private Long id;
     /**
      * 哪天的销量, 精确到天
      */
@@ -29,55 +32,4 @@ public class ProductSellDaily {
      * 店铺信息实体类
      */
     private Shop shop;
-
-    public Long getProductSellDailyId() {
-        return productSellDailyId;
-    }
-
-    public void setProductSellDailyId(Long productSellDailyId) {
-        this.productSellDailyId = productSellDailyId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Integer getTotal() {
-        return total;
-    }
-
-    public void setTotal(Integer total) {
-        this.total = total;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public Shop getShop() {
-        return shop;
-    }
-
-    public void setShop(Shop shop) {
-        this.shop = shop;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductSellDaily{" +
-                "productSellDailyId=" + productSellDailyId +
-                ", createTime=" + createTime +
-                ", total=" + total +
-                ", product=" + product +
-                ", shop=" + shop +
-                '}';
-    }
 }

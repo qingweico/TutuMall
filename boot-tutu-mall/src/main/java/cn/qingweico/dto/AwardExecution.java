@@ -2,14 +2,18 @@ package cn.qingweico.dto;
 
 import cn.qingweico.entity.Award;
 import cn.qingweico.enums.AwardStateEnum;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/15
  */
-
+@Data
+@NoArgsConstructor
 public class AwardExecution {
     /**
      * 结果状态
@@ -36,8 +40,6 @@ public class AwardExecution {
      */
     private List<Award> awardList;
 
-    public AwardExecution() {
-    }
 
     /**
      * 操作失败时返回的构造器
@@ -60,57 +62,4 @@ public class AwardExecution {
         this.stateInfo = stateEnum.getStateInfo();
         this.award = award;
     }
-
-    /**
-     * 批量操作成功时返回的构造器
-     *
-     * @param stateEnum AwardStateEnum
-     * @param awardList List<Award>
-     */
-    public AwardExecution(AwardStateEnum stateEnum, List<Award> awardList) {
-        this.state = stateEnum.getState();
-        this.stateInfo = stateEnum.getStateInfo();
-        this.awardList = awardList;
-    }
-
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    public String getStateInfo() {
-        return stateInfo;
-    }
-
-    public void setStateInfo(String stateInfo) {
-        this.stateInfo = stateInfo;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public Award getAward() {
-        return award;
-    }
-
-    public void setAward(Award award) {
-        this.award = award;
-    }
-
-    public List<Award> getAwardList() {
-        return awardList;
-    }
-
-    public void setAwardList(List<Award> awardList) {
-        this.awardList = awardList;
-    }
-
 }

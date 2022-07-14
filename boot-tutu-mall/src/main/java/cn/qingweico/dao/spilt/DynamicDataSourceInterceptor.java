@@ -18,7 +18,7 @@ import java.util.Properties;
 /**
  * mysql主从复制
  *
- * @author 周庆伟
+ * @author zqw
  * @date 2020/09/25
  */
 @Intercepts({@Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),

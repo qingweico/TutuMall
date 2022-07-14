@@ -66,13 +66,14 @@ mybatis:
   config-location: classpath:/mybatis-config.xml
 server:
   port: 80
-base:
-  windowBasePath: "E:/picture"
-  linuxBasePath: "/home/image"
-  shopPath: "/upload/item/shop/"
-  headLinePath: "/upload/item/head-title/"
-  shopCategoryPath: "/upload/item/shop-category/"
-  userPath: "/upload/item/user/"
+pic:
+  path:
+    windows: "E:/picture"
+    linux: "/home/image"
+    shop: "/upload/item/shop/"
+    headline: "/upload/item/head-title/"
+    shopCategory: "/upload/item/shop-category/"
+    user: "/upload/item/user/"
 
 #微信相关
 wechat:

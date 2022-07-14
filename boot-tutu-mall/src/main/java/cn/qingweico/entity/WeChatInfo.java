@@ -1,71 +1,43 @@
 package cn.qingweico.entity;
 
+import lombok.Data;
+
+import java.util.Date;
+
 /**
  * 用来接收平台二维码的信息
  *
- * @author 周庆伟
+ * @author zqw
  * @date 2020/11/11
  */
+@Data
 public class WeChatInfo {
+    /**
+     * 主键id
+     */
+    private Long id;
 
-    private Integer customerId;
+    /**
+     * 消费的用户id
+     */
+    private Long customerId;
 
+    /**
+     * 商品id
+     */
     private Long productId;
 
+    /**
+     * 若为兑换商品操作,则为用户奖品id,否则为空
+     */
     private Long userAwardId;
 
+    /**
+     * 创建时间
+     */
     private Long createTime;
-
-    private Integer shopId;
-
-    public Integer getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public Long getUserAwardId() {
-        return userAwardId;
-    }
-
-    public void setUserAwardId(Long userAwardId) {
-        this.userAwardId = userAwardId;
-    }
-
-    public Integer getShopId() {
-        return shopId;
-    }
-
-    public void setShopId(Integer shopId) {
-        this.shopId = shopId;
-    }
-
-    public Long getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Long createTime) {
-        this.createTime = createTime;
-    }
-
-    @Override
-    public String toString() {
-        return "WeChatInfo{" +
-                "customerId=" + customerId +
-                ", productId=" + productId +
-                ", userAwardId=" + userAwardId +
-                ", createTime=" + createTime +
-                ", shopId=" + shopId +
-                '}';
-    }
+    /**
+     * 店铺id
+     */
+    private Long shopId;
 }

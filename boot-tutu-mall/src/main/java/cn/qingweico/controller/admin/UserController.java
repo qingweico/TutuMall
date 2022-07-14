@@ -1,67 +1,52 @@
 package cn.qingweico.controller.admin;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-
-import cn.qingweico.dto.Constant4SuperAdmin;
+import cn.qingweico.common.Result;
 import cn.qingweico.dto.UserExecution;
 import cn.qingweico.entity.User;
 import cn.qingweico.enums.UserStateEnum;
-import cn.qingweico.exception.UserOperationException;
 import cn.qingweico.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import cn.qingweico.utils.ResponseStatusEnum;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/11/14
  */
+@Slf4j
 @RestController
-@RequestMapping("/superadmin")
+@RequestMapping("/a")
 public class UserController {
 
+    @Resource
     UserService userService;
-
-    private final Map<String, Object> map = new HashMap<>(5);
-
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
 
     /**
      * 列出用户信息
      *
-     * @return Map
+     * @return Result
      */
-    @GetMapping("/listusers/{pageIndex}/{pageSize}")
-    private Map<String, Object> listUsers(@PathVariable("pageIndex") Integer pageIndex, @PathVariable("pageSize") Integer pageSize) {
+    @GetMapping("/list")
+    private Result listUsers(@RequestParam Integer page, @RequestParam Integer pageSize) {
         UserExecution userExecution;
         // 获取分页信息
-        if (pageIndex > 0 && pageSize > 0) {
-            try {
-                userExecution = userService.getUserList(pageIndex, pageSize);
-            } catch (Exception e) {
-                map.put("success", false);
-                return map;
-            }
-            if (userExecution.getUserList() != null) {
-                map.put(Constant4SuperAdmin.PAGE_SIZE, userExecution.getUserList());
-                map.put(Constant4SuperAdmin.TOTAL, userExecution.getCount());
-                map.put("success", true);
+        if (page > 0 && pageSize > 0) {
+            userExecution = userService.getUserList(page, pageSize);
+            List<User> list = userExecution.getUserList();
+            if (list != null) {
+                return Result.ok(list);
             } else {
-                map.put(Constant4SuperAdmin.PAGE_SIZE, new ArrayList<User>());
-                map.put(Constant4SuperAdmin.TOTAL, 0);
-                map.put("success", true);
+                return Result.errorMsg(userExecution.getStateInfo());
             }
-        } else {
-            map.put("success", false);
-            map.put("errorMessage", "空的查询信息");
         }
-        return map;
+        log.warn("page: {}, pageSize: {}", page, pageSize);
+        return Result.error();
     }
 
     /**
@@ -69,75 +54,56 @@ public class UserController {
      *
      * @return Map
      */
-    @PostMapping("/modifyuser")
-    private Map<String, Object> modifyUser(@RequestBody Map<String, Object> params) {
+    @PostMapping("/modify")
+    private Result modifyUser(@RequestBody User user) {
         // 从前端请求中获取用户Id以及可用状态
-        int userId = (int) params.get("userId");
-        boolean enableStatus = (boolean) params.get("enableStatus");
-        int enable = enableStatus ? 1 : 0;
-        // 非空判断
-        if (userId >= 0) {
-            try {
-                User user = new User();
-                user.setUserId(userId);
-                user.setEnableStatus(enable);
-                // 修改用户可用状态
-                UserExecution ue = userService.modifyUser(user);
-                if (ue.getState() == UserStateEnum.SUCCESS.getState()) {
-                    map.put("success", true);
-                } else {
-                    map.put("success", false);
-                    map.put("errorMessage", ue.getStateInfo());
-                }
-            } catch (RuntimeException e) {
-                map.put("success", false);
-                return map;
+        if (user != null && user.getId() != null) {
+            UserExecution ue = userService.modifyUser(user);
+            if (ue.getState() == UserStateEnum.SUCCESS.getState()) {
+                return Result.errorCustom(ResponseStatusEnum.UPDATE_SUCCESS);
+            } else {
+                return Result.errorMsg(ue.getStateInfo());
             }
-
-        } else {
-            map.put("success", false);
-            map.put("errorMessage", "请输入需要修改的帐号信息");
         }
-        return map;
+        log.error("user: {}", user);
+        return Result.error();
+
     }
 
     /**
      * 根据用户名查询用户信息
+     *
      * @param username 用户名
-     * @return model
+     * @return Result
      */
-    @GetMapping("/getuserbyname/{username}")
-    public Map<String, Object> getUserByName(@PathVariable("username") String username) {
-        if (username == null) {
-            map.put("errorMessage", "请输入用户名!");
-            return map;
+    @GetMapping("/getUserByName")
+    public Result getUserByName(@RequestParam String username) {
+        if (StringUtils.isNotBlank(username)) {
+            UserExecution ue = userService.getUserByName(username);
+            if (ue.getState() == UserStateEnum.SUCCESS.getState()) {
+                return Result.ok(ue.getUser());
+            } else {
+                return Result.errorMsg(ue.getStateInfo());
+            }
         }
-        UserExecution ue = userService.getUserByName(username);
-        if (ue.getState() == UserStateEnum.SUCCESS.getState()) {
-            map.put("success", true);
-            map.put("user", ue.getUser());
-        } else {
-            map.put("success", false);
-            map.put("errorMessage", ue.getStateInfo());
-        }
-        return map;
+        log.error("username: {}", username);
+        return Result.error();
     }
 
     /**
      * 根据用户id查询用户信息
+     *
      * @param userId 用户id
      * @return User
      */
-    @GetMapping("/getuserbyid/{id}")
-    public User getUserById(@PathVariable("id") Integer userId) {
-        if (userId == null) {
-            throw new RuntimeException("空的userId!");
+    @GetMapping("/getUserById")
+    public Result getUserById(@RequestParam Long userId) {
+        if (userId != null) {
+            User user = userService.getUserById(userId);
+            return Result.ok(user);
         }
-        if (userId > 0) {
-            return userService.getUserById(userId);
-        } else {
-            throw new UserOperationException("不合法的参数!");
-        }
+        log.error("userId: {}", userId);
+        return Result.error();
     }
 
 }

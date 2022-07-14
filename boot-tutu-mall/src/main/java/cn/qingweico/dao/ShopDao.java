@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/17
  */
 @Repository
@@ -34,7 +34,7 @@ public interface ShopDao {
      * @param shopId 店铺id
      * @return shop
      */
-    Shop queryShopById(Integer shopId);
+    Shop queryShopById(Long shopId);
 
     /**
      * 分页查询店铺列表 根据店铺分类 区域 店铺状态 店铺名称(模糊查询)以及user
@@ -45,14 +45,6 @@ public interface ShopDao {
      * @return 店铺列表
      */
     List<Shop> queryShopList(@Param("shopCondition") Shop shopCondition, @Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
-
-    /**
-     * 查询店铺列表总数
-     *
-     * @param shopCondition 查询条件
-     * @return effectNum
-     */
-    int queryShopCount(@Param("shopCondition") Shop shopCondition);
 
     /**
      * 查询所有的店铺信息

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.qingweico.dao.HeadLineDao">
-    <select id="queryHeadLine" resultType="HeadLine">
+    <select id="queryHeadLine" resultType="cn.qingweico.entity.HeadLine">
         select
             line_id,
             line_name,
@@ -22,7 +22,7 @@
         priority
         desc
     </select>
-    <select id="queryHeadLineById" resultType="HeadLine">
+    <select id="queryHeadLineById" resultType="cn.qingweico.entity.HeadLine">
         SELECT
             line_id,
             line_name,
@@ -37,7 +37,7 @@
         WHERE
             line_id = #{lineId}
     </select>
-    <select id="queryHeadLineByIds" resultType="HeadLine" parameterType="long">
+    <select id="queryHeadLineByIds" resultType="cn.qingweico.entity.HeadLine" parameterType="long">
         SELECT
             line_id,
             line_name,

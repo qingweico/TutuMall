@@ -4,13 +4,15 @@ package cn.qingweico.dto;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 /**
  * 微信用户实体类
  *
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/21
  */
+@Data
 public class WeChatUser implements Serializable {
 
     /**
@@ -58,78 +60,6 @@ public class WeChatUser implements Serializable {
      */
     @JsonProperty("privilege")
     private String[] privilege;
-
-    public String getOpenId() {
-        return openId;
-    }
-
-    public void setOpenId(String openId) {
-        this.openId = openId;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public char getSex() {
-        return sex;
-    }
-
-    public void setSex(char sex) {
-        this.sex = sex;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getHeadImgUrl() {
-        return headImgUrl;
-    }
-
-    public void setHeadImgUrl(String headImgUrl) {
-        this.headImgUrl = headImgUrl;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public String[] getPrivilege() {
-        return privilege;
-    }
-
-    public void setPrivilege(String[] privilege) {
-        this.privilege = privilege;
-    }
 
     @Override
     public String toString() {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.qingweico.dao.AreaDao">
-    <select id="queryAllArea" resultType="Area">
+    <select id="queryAllArea" resultType="cn.qingweico.entity.Area">
         SELECT
             area_id,
             area_name,
@@ -14,7 +14,7 @@
             priority
         DESC
     </select>
-    <select id="queryAreaById" resultType="Area">
+    <select id="queryAreaById" resultType="cn.qingweico.entity.Area">
         select
             area_id,
             area_name,

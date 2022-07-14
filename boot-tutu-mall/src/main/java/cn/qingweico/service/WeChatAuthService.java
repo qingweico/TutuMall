@@ -1,11 +1,10 @@
 package cn.qingweico.service;
 
-import cn.qingweico.dto.WeChatAuthExecution;
-import cn.qingweico.entity.WeChatAuth;
-import cn.qingweico.exception.WeChatAuthOperationException;
+import cn.qingweico.dto.WeChatAuthRecordExecution;
+import cn.qingweico.entity.WeChatAuthRecord;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/21
  */
 public interface WeChatAuthService {
@@ -16,16 +15,15 @@ public interface WeChatAuthService {
      * @param openId openId
      * @return WeChatAuth
      */
-    WeChatAuth getWeChatAuthByOpenId(String openId);
+    WeChatAuthRecord getWeChatAuthByOpenId(String openId);
 
     /**
      * 注册本平台的微信帐号
      *
      * @param weChatAuth WeChatAuth
      * @return WeChatAuthExecution
-     * @throws WeChatAuthOperationException WeChatAuthOperationException
      */
-    WeChatAuthExecution register(WeChatAuth weChatAuth) throws WeChatAuthOperationException;
+    WeChatAuthRecordExecution register(WeChatAuthRecord weChatAuth);
 
 
 }

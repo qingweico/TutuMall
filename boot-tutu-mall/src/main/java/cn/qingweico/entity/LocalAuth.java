@@ -1,19 +1,21 @@
 package cn.qingweico.entity;
 
+import lombok.Data;
+
 import java.util.Date;
 
 /**
  * 本地账号信息
  *
- * @author 周庆伟
+ * @author zqw
  * @date 2020/09/05
  */
-
+@Data
 public class LocalAuth {
     /**
      * 本地账号ID
      */
-    private Long localAuthId;
+    private Long id;
     /**
      * 本地账号用户名
      */
@@ -31,67 +33,7 @@ public class LocalAuth {
      */
     private Date lastEditTime;
     /**
-     * 本地账号绑定的用户信息
+     * 本地账号绑定的用户id
      */
-    private User user;
-
-    public Long getLocalAuthId() {
-        return localAuthId;
-    }
-
-    public void setLocalAuthId(Long localAuthId) {
-        this.localAuthId = localAuthId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getLastEditTime() {
-        return lastEditTime;
-    }
-
-    public void setLastEditTime(Date lastEditTime) {
-        this.lastEditTime = lastEditTime;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return "LocalAuth{" +
-                "localAuthId=" + localAuthId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", createTime=" + createTime +
-                ", lastEditTime=" + lastEditTime +
-                ", user=" + user +
-                '}';
-    }
+    private Long userId;
 }

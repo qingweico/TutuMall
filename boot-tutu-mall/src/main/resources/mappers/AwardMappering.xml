@@ -1,132 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.qingweico.dao.AwardDao">
-    <select id="queryAwardList" resultType="Award">
-        SELECT
-            award_id,
-            award_name,
-            award_description,
-            award_image,
-            point,
-            priority,
-            create_time,
-            last_edit_time,
-            enable_status,
-            shop_id
-        FROM
-            tb_award
-        <where>
-            <!-- 按奖品名模糊查询 -->
-            <if test="awardCondition.awardName!=null">
-                and award_name like '%${awardCondition.awardName}%'
-            </if>
-            <!-- 按店铺查询 -->
-            <if test="awardCondition.shopId!=null">
-                and shop_id = #{awardCondition.shopId}
-            </if>
-            <!-- 按可用状态查询 -->
-            <if test="awardCondition.enableStatus!=null">
-                and enable_status = #{awardCondition.enableStatus}
-            </if>
-        </where>
-        ORDER BY
-            priority
-        DESC
-            LIMIT #{rowIndex},#{pageSize};
-    </select>
+	<select id="queryAwardList" resultType="cn.qingweico.entity.Award">
+		SELECT
+		award_id,
+		award_name,
+		award_description,
+		award_image,
+		point,
+		priority,
+		create_time,
+		last_edit_time,
+		enable_status,
+		shop_id
+		FROM
+		tb_award
+		<where>
+			<!-- 按奖品名模糊查询 -->
+			<if test="awardCondition.awardName!=null">
+				and award_name like '%${awardCondition.awardName}%'
+			</if>
+			<!-- 按店铺查询 -->
+			<if test="awardCondition.shopId!=null">
+				and shop_id = #{awardCondition.shopId}
+			</if>
+			<!-- 按可用状态查询 -->
+			<if test="awardCondition.enableStatus!=null">
+				and enable_status = #{awardCondition.enableStatus}
+			</if>
+		</where>
+		ORDER BY
+		priority
+		DESC
+		LIMIT #{rowIndex},#{pageSize};
+	</select>
+	<select id="queryAwardById" resultType="cn.qingweico.entity.Award" parameterType="Long">
+		SELECT award_id,
+		       award_name,
+		       award_description,
+		       award_image,
+		       point,
+		       priority,
+		       create_time,
+		       last_edit_time,
+		       enable_status,
+		       shop_id
+		FROM tb_award
+		WHERE award_id = #{awardId}
+	</select>
+	<insert id="insertAward" parameterType="Award"
+	        useGeneratedKeys="true" keyProperty="awardId" keyColumn="award_id">
+		INSERT INTO tb_award
+		(award_name,
+		 award_description,
+		 award_image,
+		 point,
+		 priority,
+		 create_time,
+		 last_edit_time,
+		 enable_status,
+		 shop_id)
+		VALUES (#{awardName},
+		        #{awardDescription},
+		        #{awardImage},
+		        #{point},
+		        #{priority},
+		        #{createTime},
+		        #{lastEditTime},
+		        #{enableStatus},
+		        #{shopId})
+	</insert>
+	<update id="updateAward" parameterType="Award"
+	        keyProperty="award_id" useGeneratedKeys="true">
+		UPDATE
+		tb_award
+		<set>
+			<if test="awardName != null">award_name = #{awardName},</if>
+			<if test="awardDescription != null">award_description = #{awardDescription},</if>
+			<if test="awardImage != null">award_image = #{awardImage},</if>
+			<if test="point != null">point = #{point},</if>
+			<if test="priority != null">priority = #{priority},</if>
+			<if test="lastEditTime != null">last_edit_time = #{lastEditTime},</if>
+			<if test="enableStatus != null">enable_status = #{enableStatus}</if>
+		</set>
+		WHERE
+		award_id = #{awardId}
+		AND
+		shop_id = #{shopId}
 
-    <select id="queryAwardCount" resultType="int">
-        SELECT
-            count(*)
-        FROM
-            tb_award
-        <where>
-            <!-- 按奖品名模糊查询 -->
-            <if test="awardCondition.awardName!=null">
-                and award_name like '%${awardCondition.awardName}%'
-            </if>
-            <!-- 按店铺查询 -->
-            <if test="awardCondition.shopId!=null">
-                and shop_id = #{awardCondition.shopId}
-            </if>
-            <!-- 按可用状态查询 -->
-            <if test="awardCondition.enableStatus!=null">
-                and enable_status = #{awardCondition.enableStatus}
-            </if>
-        </where>
-    </select>
-    <select id="queryAwardByAwardId" resultType="Award" parameterType="Long">
-        SELECT
-            award_id,
-            award_name,
-            award_description,
-            award_image,
-            point,
-            priority,
-            create_time,
-            last_edit_time,
-            enable_status,
-            shop_id
-        FROM
-            tb_award
-        WHERE
-            award_id = #{awardId}
-    </select>
-    <insert id="insertAward" parameterType="Award"
-            useGeneratedKeys="true" keyProperty="awardId" keyColumn="award_id">
-        INSERT INTO
-        tb_award
-        (
-            award_name,
-            award_description,
-            award_image,
-            point,
-            priority,
-            create_time,
-            last_edit_time,
-            enable_status,
-            shop_id
-        )
-        VALUES
-        (
-            #{awardName},
-            #{awardDescription},
-            #{awardImage},
-            #{point},
-            #{priority},
-            #{createTime},
-            #{lastEditTime},
-            #{enableStatus},
-            #{shopId}
-        )
-    </insert>
-    <update id="updateAward" parameterType="Award"
-            keyProperty="award_id" useGeneratedKeys="true">
-        UPDATE
-        tb_award
-        <set>
-            <if test="awardName != null">award_name = #{awardName},</if>
-            <if test="awardDescription != null">award_description = #{awardDescription},</if>
-            <if test="awardImage != null">award_image = #{awardImage},</if>
-            <if test="point != null">point = #{point},</if>
-            <if test="priority != null">priority = #{priority},</if>
-            <if test="lastEditTime != null">last_edit_time = #{lastEditTime},</if>
-            <if test="enableStatus != null">enable_status = #{enableStatus}</if>
-        </set>
-        WHERE
-        award_id = #{awardId}
-        AND
-        shop_id = #{shopId}
-
-    </update>
-    <delete id="deleteAward">
-        DELETE FROM
-            tb_award
-        WHERE
-            award_id = #{awardId}
-        AND
-            shop_id=#{shopId}
-    </delete>
+	</update>
+	<delete id="deleteAward">
+		DELETE
+		FROM tb_award
+		WHERE award_id = #{awardId}
+		  AND shop_id = #{shopId}
+	</delete>
 </mapper>

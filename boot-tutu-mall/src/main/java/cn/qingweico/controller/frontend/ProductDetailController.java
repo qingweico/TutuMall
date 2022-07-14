@@ -1,28 +1,32 @@
 package cn.qingweico.controller.frontend;
 
+import cn.qingweico.common.Result;
 import cn.qingweico.entity.Product;
 import cn.qingweico.entity.User;
-import cn.qingweico.enums.ProductStateEnum;
 import cn.qingweico.service.ProductService;
 import cn.qingweico.utils.CodeUtil;
 import cn.qingweico.utils.HttpServletRequestUtil;
-import cn.qingweico.utils.JsonResult;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author 周庆伟
+ * -------------- 主页商品详情 --------------
+ *
+ * @author zqw
  * @date 2020/11/14
  */
+@Slf4j
 @RestControllerAdvice
-@RequestMapping("/frontend")
+@RequestMapping("/u")
 public class ProductDetailController {
+    @Resource
     ProductService productService;
 
     /**
@@ -62,39 +66,36 @@ public class ProductDetailController {
         ProductDetailController.productMapUrl = productMapUrl;
     }
 
-    @Autowired
-    public void setProductService(ProductService productService) {
-        this.productService = productService;
-    }
 
     /**
      * 根据商品id获取商品信息
      *
      * @param request HttpServletRequest
-     * @return Map
+     * @return Result
      */
     @GetMapping("/productDetailPageInfo")
-    public JsonResult productDetailPageInfo(HttpServletRequest request) {
+    public Result productDetailPageInfo(HttpServletRequest request) {
         long productId = HttpServletRequestUtil.getLong(request, "productId");
-        Map<String, Object> map = new HashMap<>(10);
+        Map<String, Object> map = new HashMap<>(2);
         Product product;
         if (productId != -1) {
             product = productService.getProductById(productId);
             User user = (User) request.getSession().getAttribute("user");
             if (user == null) {
+                // 用户未登录则不显示二维码
                 map.put("needQRCode", false);
             } else {
                 map.put("needQRCode", true);
             }
             map.put("product", product);
-            return JsonResult.ok(map);
-        } else {
-            return JsonResult.errorMsg(ProductStateEnum.EMPTY.getStateInfo());
+            return Result.ok(map);
         }
+        log.error("productId: {}", productId);
+        return Result.error();
     }
 
     /**
-     * 生成商品的消费凭证二维码, 供操作员扫描, 证明已消费, 微信扫一扫就能链接到对应的URL里面
+     * 生成商品的消费凭证二维码, 证明已消费
      *
      * @param request  HttpServletRequest
      * @param response HttpServletResponse
@@ -106,13 +107,12 @@ public class ProductDetailController {
         // 从session里获取当前顾客的信息
         User user = (User) request.getSession().getAttribute("user");
         // 空值判断
-        if (productId != -1 && user != null && user.getUserId() != null) {
+        if (productId != -1 && user != null && user.getId() != null) {
             // 获取当前时间戳, 以保证二维码的时间有效性, 精确到毫秒
             long timeStamp = System.currentTimeMillis();
-            // 将商品id, 顾客Id和timestamp传入content, 赋值到state中, 这样微信获取到这些信息后会回传到用户
-            // 商品映射信息的添加方法里, 加上aaa是为了一会的在添加信息的方法里替换这些信息使用
+            // 将商品id, 顾客Id和timestamp传入content, 赋值到state中
             String content = "{productId:" + productId +
-                    ",customerId:" + user.getUserId() +
+                    ",userId:" + user.getId() +
                     ",createTime:" + timeStamp + "}";
             CodeUtil.generateQrCode(response, content, urlPrefix, productMapUrl, urlMiddle, urlSuffix);
         }

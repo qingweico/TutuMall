@@ -1,10 +1,10 @@
 package cn.qingweico.dao;
 
-import cn.qingweico.entity.WeChatAuth;
+import cn.qingweico.entity.WeChatAuthRecord;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/21
  */
 @Repository
@@ -15,7 +15,7 @@ public interface WeChatAuthDao {
      * @param openId openId
      * @return WeChatAuth
      */
-    WeChatAuth queryWeChatInfoByOpenId(String openId);
+    WeChatAuthRecord queryWeChatInfoByOpenId(String openId);
 
     /**
      * 添加对应本平台的微信帐号
@@ -23,6 +23,6 @@ public interface WeChatAuthDao {
      * @param weChatAuth WeChatAuth
      * @return effectNum
      */
-    int insertWeChatAuth(WeChatAuth weChatAuth);
+    int insertWeChatAuth(WeChatAuthRecord weChatAuth);
 
 }

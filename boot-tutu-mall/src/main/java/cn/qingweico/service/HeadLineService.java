@@ -4,19 +4,13 @@ import cn.qingweico.dto.HeadLineExecution;
 import cn.qingweico.dto.ImageHolder;
 import cn.qingweico.entity.HeadLine;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/09/15
  */
 public interface HeadLineService {
-    /**
-     * 头条信息缓存的key
-     */
-    String HEADLINE_LIST_KEY = "headLineList";
-
     /**
      * 根据传入的条件返回指定的头条列表
      *
@@ -26,7 +20,7 @@ public interface HeadLineService {
     List<HeadLine> getHeadLineList(HeadLine headLineCondition);
 
     /**
-     * 添加头条信息，并存储头条图片
+     * 添加头条信息,并存储头条图片
      *
      * @param headLine  头条
      * @param thumbnail 头条缩略图
@@ -49,7 +43,7 @@ public interface HeadLineService {
      * @param headLineId 头条id
      * @return HeadLineExecution
      */
-    HeadLineExecution removeHeadLine(long headLineId);
+    HeadLineExecution deleteHeadlineById(long headLineId);
 
     /**
      * 批量删除头条

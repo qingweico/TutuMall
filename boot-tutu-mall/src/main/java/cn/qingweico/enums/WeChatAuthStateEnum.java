@@ -3,7 +3,7 @@ package cn.qingweico.enums;
 /**
  * 有关微信绑定操作状态枚举
  *
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/21
  */
 
@@ -14,9 +14,11 @@ public enum WeChatAuthStateEnum {
      */
     LOGIN_FAIL(-1, "openId输入有误"),
     /**
-     * 操作成功
+     * 成功
      */
-    SUCCESS(0, "操作成功"),
+    SUCCESS(0, "成功"),
+
+    INNER_ERROR(-1005, "内部错误"),
     /**
      * 注册信息为空
      */

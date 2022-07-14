@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/2
  */
 @Repository
@@ -29,7 +29,7 @@ public interface HeadLineDao {
     HeadLine queryHeadLineById(long lineId);
 
     /**
-     * 根据传入的id列表查询头条信息(供超级管理员选定删除头条的时候用,主要是处理图片)
+     * 根据传入的id列表查询头条信息
      *
      * @param lineIdList 头条id集合
      * @return 头条列表
@@ -37,7 +37,7 @@ public interface HeadLineDao {
     List<HeadLine> queryHeadLineByIds(List<Long> lineIdList);
 
     /**
-     * 插入头条
+     * 新增头条
      *
      * @param headLine 头条
      * @return effectNum

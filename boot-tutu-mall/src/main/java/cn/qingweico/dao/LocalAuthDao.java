@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/11/10
  */
 
@@ -50,7 +50,7 @@ public interface LocalAuthDao {
      * @param lastEditTime 最新修改的时间
      * @return effectNum
      */
-    int updateLocalAuth(@Param("userId") Integer userId, @Param("username") String username,
+    int updateLocalAuth(@Param("userId") Long userId, @Param("username") String username,
                         @Param("password") String password, @Param("newPassword") String newPassword,
                         @Param("lastEditTime") Date lastEditTime);
 }

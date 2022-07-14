@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/2
  */
 
@@ -26,20 +26,12 @@ public interface AwardDao {
                                @Param("pageSize") int pageSize);
 
     /**
-     * 配合queryAwardList返回相同查询条件下的奖品数
-     *
-     * @param awardCondition 查询条件
-     * @return 奖品数
-     */
-    int queryAwardCount(@Param("awardCondition") Award awardCondition);
-
-    /**
      * 通过awardId查询奖品信息
      *
      * @param awardId 奖品id
      * @return 奖品信息
      */
-    Award queryAwardByAwardId(long awardId);
+    Award queryAwardById(long awardId);
 
     /**
      * 添加奖品信息

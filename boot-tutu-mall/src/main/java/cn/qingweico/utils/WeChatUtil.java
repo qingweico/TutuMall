@@ -135,7 +135,7 @@ public class WeChatUtil {
         User user = new User();
         user.setName(weChatUser.getNickName());
         user.setGender(weChatUser.getSex());
-        user.setProfileImage(weChatUser.getHeadImgUrl());
+        user.setAvatar(weChatUser.getHeadImgUrl());
         user.setEnableStatus(1);
         return user;
     }

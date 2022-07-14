@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 /**
  * mysql主从复制
  *
- * @author 周庆伟
+ * @author zqw
  * @date 2020/09/24
  */
 @Slf4j

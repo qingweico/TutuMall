@@ -2,19 +2,23 @@ package cn.qingweico.enums;
 
 /**
  * 有关头条操作状态枚举
- * @author 周庆伟
+ * @author zqw
  * @date 2020/11/13
  */
 
 public enum HeadLineStateEnum {
     /**
-     * 创建成功
+     * 删除单条记录成功
      */
-    SUCCESS(200, "创建成功"),
+    DELETE_SUCCESS(200, "删除头条成功"),
+    /**
+     * 批量删除记录成功
+     */
+    BATCH_DELETE_SUCCESS(200, "批量删除头条成功"),
     /**
      * 操作失败
      */
-    INNER_ERROR(-1001, "操作失败"),
+    INNER_ERROR(-1001, "内部错误"),
     /**
      * 头条信息为空
      */

@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/3
  */
 
@@ -34,7 +34,7 @@ public interface ProductSellDailyDao {
     int insertProductSellDaily();
 
     /**
-     * 统计平台当天没销量的商品,补全信息,将销量置为0
+     * 统计平台当天没销量的商品 补全信息 将销量置为0
      *
      * @return effectNum
      */

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/12
  */
 @Repository
@@ -20,7 +20,7 @@ public interface ProductImageDao {
     List<ProductImage> queryProductImageList(Long productId);
 
     /**
-     * 批量插入商品图片
+     * 批量新增商品图片
      *
      * @param productImageList 商品图片集合
      * @return effectNum

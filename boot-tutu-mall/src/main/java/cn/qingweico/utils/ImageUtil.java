@@ -16,7 +16,7 @@ import java.util.Random;
 /**
  * 图片处理工具
  *
- * @author 周庆伟
+ * @author zqw
  * @date 2020/09/12
  */
 @Slf4j
@@ -112,8 +112,8 @@ public class ImageUtil {
         String filePath = PathUtil.getImageBasePath() + targetAddress;
         File file = new File(filePath);
         if (!file.exists()) {
-            boolean hasMkdirs = file.mkdirs();
-            if (!hasMkdirs) {
+            boolean hasMkDirs = file.mkdirs();
+            if (!hasMkDirs) {
                 log.error("创建图片文件夹失败!");
             }
 

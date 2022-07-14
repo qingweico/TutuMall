@@ -2,6 +2,7 @@ package cn.qingweico.enums;
 
 /**
  * 有关本地账号操作状态枚举
+ *
  * @author 周庆伟
  * @date 2020/11/11
  */
@@ -12,13 +13,21 @@ public enum LocalAuthStateEnum {
      */
     LOGIN_FAIL(-1, "密码或帐号输入有误"),
     /**
-     * 操作成功
+     * 账号绑定成功
      */
-    SUCCESS(200, "操作成功"),
+    BIND_SUCCESS(200, "帐号绑成功"),
     /**
-     * 注册信息为空
+     * 内部错误
      */
-    NULL_AUTH_INFO(-1006, "注册信息为空"),
+    INNER_ERROR(200, "内部错误"),
+    /**
+     * 新密码和旧密码不一样
+     */
+    PASSWORD_DIFFERENT(-1006, "新密码和旧密码不一样"),
+    /**
+     * 密码修改成功
+     */
+    PASSWORD_SUCCESS(-1006, "密码修改成功"),
     /**
      * 最多只能绑定一个本地帐号
      */

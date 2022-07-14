@@ -8,29 +8,17 @@ package cn.qingweico.enums;
  */
 public enum ProductStateEnum {
     /**
-     * 非法商品
-     */
-    OFFLINE(-1, "非法商品"),
-    /**
      * 下架
      */
     OWN(0, "下架"),
     /**
-     * 操作成功
+     * 成功
      */
-    SUCCESS(200, "操作成功"),
+    SUCCESS(200, "成功"),
     /**
      * 操作失败
      */
-    INNER_ERROR(-1001, "操作失败"),
-    /**
-     * 商品为空
-     */
-    EMPTY(-1002, "商品为空"),
-    /**
-     * 商品名称为空
-     */
-    EMPTY_PRODUCT_NAME(-1003,"商品名称为空");
+    INNER_ERROR(-1001, "内部错误");
     /**
      * 商品状态
      */

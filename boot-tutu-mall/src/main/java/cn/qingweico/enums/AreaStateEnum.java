@@ -19,11 +19,11 @@ public enum AreaStateEnum {
     /**
      * 操作失败
      */
-    INNER_ERROR(-1001, "操作失败"),
+    OP_ERROR(-1001, "操作失败"),
     /**
      * 区域信息为空
      */
-    EMPTY(-1002, "区域信息为空");
+    EMPTY(-1002, "不存在的区域信息");
 
     private final int state;
 

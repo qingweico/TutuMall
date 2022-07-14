@@ -3,7 +3,7 @@ package cn.qingweico.service;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/15
  */
 @Repository

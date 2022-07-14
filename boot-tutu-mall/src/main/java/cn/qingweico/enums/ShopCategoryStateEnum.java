@@ -1,20 +1,20 @@
 package cn.qingweico.enums;
 
 /**
- * 有关店铺类别操作状态枚举
- * @author 周庆伟
+ * 店铺类别操作状态枚举
+ * @author zqw
  * @date 2020/11/13
  */
 
 public enum ShopCategoryStateEnum {
     /**
-     * 创建成功
+     * 成功
      */
-    SUCCESS(200, "创建成功"),
+    SUCCESS(200, "成功"),
     /**
-     * 操作失败
+     * 失败
      */
-    INNER_ERROR(-1001, "操作失败"),
+    FAIL(-1001, "失败"),
     /**
      * 区域信息为空
      */

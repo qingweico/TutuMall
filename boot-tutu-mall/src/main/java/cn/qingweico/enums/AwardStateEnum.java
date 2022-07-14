@@ -3,7 +3,7 @@ package cn.qingweico.enums;
 /**
  * 有关奖品操作状态枚举
  *
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/15
  */
 
@@ -11,23 +11,15 @@ public enum AwardStateEnum {
     /**
      * 非法奖品
      */
-    OFFLINE(-1, "非法奖品"),
+    UPDATE_SUCCESS(-1, "修改商品成功"),
     /**
-     * 操作成功
+     * 添加商品成功
      */
-    SUCCESS(200, "操作成功"),
+    ADD_SUCCESS(200, "添加商品成功"),
     /**
-     * 操作失败
+     * 内部错误
      */
-    INNER_ERROR(-1001, "操作失败"),
-    /**
-     * 奖品信息为空!
-     */
-    EMPTY(-1002, "奖品信息为空"),
-    /**
-     * 奖品信息为空!
-     */
-    EMPTY_AWARD_NAME(-1003, "奖品名称为空");
+    INNER_ERROR(-1001, "内部错误");
 
     private final int state;
 

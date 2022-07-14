@@ -1,19 +1,21 @@
 package cn.qingweico.entity;
 
+import lombok.Data;
+
 import java.util.Date;
 
 /**
  * 用户信息
  *
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/24
  */
-
+@Data
 public class User {
     /**
      * 用户id
      */
-    private Integer userId;
+    private Long id;
     /**
      * 用户姓名
      */
@@ -21,7 +23,7 @@ public class User {
     /**
      * 用户头像地址
      */
-    private String profileImage;
+    private String avatar;
     /**
      * 用户邮箱
      */
@@ -46,91 +48,4 @@ public class User {
      * 用户信息的更新时间
      */
     private Date lastEditTime;
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getProfileImage() {
-        return profileImage;
-    }
-
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public char getGender() {
-        return gender;
-    }
-
-    public void setGender(char gender) {
-        this.gender = gender;
-    }
-
-    public Integer getEnableStatus() {
-        return enableStatus;
-    }
-
-    public void setEnableStatus(Integer enableStatus) {
-        this.enableStatus = enableStatus;
-    }
-
-    public Integer getUserType() {
-        return userType;
-    }
-
-    public void setUserType(Integer userType) {
-        this.userType = userType;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getLastEditTime() {
-        return lastEditTime;
-    }
-
-    public void setLastEditTime(Date lastEditTime) {
-        this.lastEditTime = lastEditTime;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", name='" + name + '\'' +
-                ", profileImage='" + profileImage + '\'' +
-                ", email='" + email + '\'' +
-                ", gender=" + gender +
-                ", enableStatus=" + enableStatus +
-                ", userType=" + userType +
-                ", createTime=" + createTime +
-                ", lastEditTime=" + lastEditTime +
-                '}';
-    }
 }

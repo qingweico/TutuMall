@@ -2,10 +2,10 @@ package cn.qingweico.controller.wechat;
 
 
 import cn.qingweico.dto.UserAccessToken;
-import cn.qingweico.dto.WeChatAuthExecution;
+import cn.qingweico.dto.WeChatAuthRecordExecution;
 import cn.qingweico.dto.WeChatUser;
 import cn.qingweico.entity.User;
-import cn.qingweico.entity.WeChatAuth;
+import cn.qingweico.entity.WeChatAuthRecord;
 import cn.qingweico.enums.UserTypeEnum;
 import cn.qingweico.enums.WeChatAuthStateEnum;
 import cn.qingweico.service.UserService;
@@ -51,7 +51,7 @@ public class WeChatLoginController {
         log.debug("WeChat login code: " + code);
         WeChatUser user = null;
         String openId = null;
-        WeChatAuth auth = null;
+        WeChatAuthRecord auth = null;
         if (code != null) {
             UserAccessToken token;
             // 通过code获取access_token
@@ -75,7 +75,7 @@ public class WeChatLoginController {
         // 若微信帐号为空则需要注册微信帐号, 同时注册用户信息
         if (auth == null) {
             User userInfo = WeChatUtil.getUserFromRequest(user);
-            auth = new WeChatAuth();
+            auth = new WeChatAuthRecord();
             auth.setOpenId(openId);
             if (userInfo != null) {
                 // 普通用户绑定账号
@@ -87,11 +87,11 @@ public class WeChatLoginController {
                 }
             }
             auth.setUser(userInfo);
-            WeChatAuthExecution weChatAuthExecution = wechatAuthService.register(auth);
+            WeChatAuthRecordExecution weChatAuthExecution = wechatAuthService.register(auth);
             if (weChatAuthExecution.getState() != WeChatAuthStateEnum.SUCCESS.getState()) {
                 return null;
             } else {
-                userInfo = userService.getUserById(auth.getUser().getUserId());
+                userInfo = userService.getUserById(auth.getUser().getId());
                 request.getSession().setAttribute("user", userInfo);
             }
         } else {

@@ -2,7 +2,8 @@ package cn.qingweico.enums;
 
 /**
  * 有关店铺操作状态枚举
- * @author 周庆伟
+ *
+ * @author zqw
  * @date 2020/09/15
  */
 
@@ -16,29 +17,25 @@ public enum ShopStateEnum {
      */
     OFFLINE(-1, "非法店铺"),
     /**
-     * 操作成功
+     * 成功
      */
-    SUCCESS(1, "操作成功"),
+    SUCCESS(1, "成功"),
     /**
      * 通过审核
      */
     PASS(2, "通过审核"),
     /**
+     * 创建店铺失败
+     */
+    ADD_FAIL(0, "创建店铺失败"),
+    /**
+     * 更新店铺失败
+     */
+    UPDATE_FAIL(0, "创建店铺失败"),
+    /**
      * 内部错误
      */
-    INNER_ERROR(-1001, "内部错误"),
-    /**
-     * SHOP_ID为空
-     */
-    NULL_SHOP_ID(-1002, "SHOP_ID为空"),
-    /**
-     * 店铺信息为空
-     */
-    NULL_SHOP(-1003, "店铺信息为空"),
-    /**
-     * 店铺名称为空
-     */
-    NULL_SHOP_NAME(-1004, "店铺名称为空");
+    INNER_ERROR(-1001, "内部错误");
 
     /**
      * 店铺的状态

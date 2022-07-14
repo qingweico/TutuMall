@@ -3,7 +3,7 @@ package cn.qingweico.enums;
 /**
  * 有关商品类别操作状态枚举
  *
- * @author 周庆伟
+ * @author zqw
  * @date 2020/09/21
  */
 
@@ -11,11 +11,11 @@ public enum ProductCategoryStateEnum {
     /**
      *
      */
-    SUCCESS(200, "操作成功"),
+    SUCCESS(200, "成功"),
     /**
      *
      */
-    INNER_ERROR(-1001, "操作失败"),
+    INNER_ERROR(-1001, "内部错误"),
     /**
      *
      */

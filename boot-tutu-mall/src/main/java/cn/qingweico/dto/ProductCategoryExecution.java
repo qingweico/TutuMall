@@ -3,13 +3,15 @@ package cn.qingweico.dto;
 import cn.qingweico.entity.ProductCategory;
 import cn.qingweico.enums.ProductCategoryStateEnum;
 import cn.qingweico.enums.ShopStateEnum;
+import lombok.Data;
 
 import java.util.List;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/03
  */
+@Data
 public class ProductCategoryExecution {
     /**
      * 结果状态
@@ -24,9 +26,7 @@ public class ProductCategoryExecution {
      */
     private List<ProductCategory> productCategoryList;
 
-    public ProductCategoryExecution() {
-    }
-
+    public ProductCategoryExecution(){}
     /**
      * 对商品类别有关操作失败时的构造器
      *
@@ -46,30 +46,6 @@ public class ProductCategoryExecution {
     public ProductCategoryExecution(ShopStateEnum shopStateEnum, List<ProductCategory> productCategoryList) {
         this.state = shopStateEnum.getState();
         this.stateInfo = shopStateEnum.getStateInfo();
-        this.productCategoryList = productCategoryList;
-    }
-
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    public String getStateInfo() {
-        return stateInfo;
-    }
-
-    public void setStateInfo(String stateInfo) {
-        this.stateInfo = stateInfo;
-    }
-
-    public List<ProductCategory> getProductCategoryList() {
-        return productCategoryList;
-    }
-
-    public void setProductCategoryList(List<ProductCategory> productCategoryList) {
         this.productCategoryList = productCategoryList;
     }
 }

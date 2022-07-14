@@ -2,13 +2,17 @@ package cn.qingweico.dto;
 
 import cn.qingweico.entity.Product;
 import cn.qingweico.enums.ProductStateEnum;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/09/27
  */
+@Data
+@NoArgsConstructor
 public class ProductExecution {
     /**
      * 结果状态
@@ -31,8 +35,7 @@ public class ProductExecution {
      */
     List<Product> productList;
 
-    public ProductExecution() {
-    }
+
 
     /**
      * 对商品有关操作失败时的构造器
@@ -65,46 +68,6 @@ public class ProductExecution {
     public ProductExecution(ProductStateEnum productStateEnum, List<Product> productList) {
         this.state = productStateEnum.getState();
         this.stateInfo = productStateEnum.getStateInfo();
-        this.productList = productList;
-    }
-
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    public String getStateInfo() {
-        return stateInfo;
-    }
-
-    public void setStateInfo(String stateInfo) {
-        this.stateInfo = stateInfo;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public List<Product> getProductList() {
-        return productList;
-    }
-
-    public void setProductList(List<Product> productList) {
         this.productList = productList;
     }
 }

@@ -117,7 +117,7 @@
         and
         shop_id = #{shop.shopId};
     </update>
-    <select id="queryProductList" resultType="Product">
+    <select id="queryProductList" resultType="cn.qingweico.entity.Product">
         select
             product_id,
             product_name,
@@ -152,26 +152,6 @@
         priority
         desc
         limit #{rowIndex},#{pageSize};
-    </select>
-    <select id="queryProductCount" resultType="int">
-        select
-        count(*)
-        from
-        tb_product
-        <where>
-            <if test="productCondition.shop != null and productCondition.shop.shopId != null">
-                and shop_id = #{productCondition.shop.shopId}
-            </if>
-            <if test="productCondition.productCategory != null and productCondition.productCategory.productCategoryId != null">
-                and product_category_id = #{productCondition.productCategory.productCategoryId}
-            </if>
-            <if test="productCondition.productName != null">
-                and product_name like '%${productCondition.productName}%'
-            </if>
-            <if test="productCondition.enableStatus != null">
-                and enable_status = #{productCondition.enableStatus}
-            </if>
-        </where>
     </select>
     <update id="updateProductCategoryToNull">
         update

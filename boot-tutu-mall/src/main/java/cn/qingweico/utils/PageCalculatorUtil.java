@@ -1,7 +1,7 @@
 package cn.qingweico.utils;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/09/21
  */
 public class PageCalculatorUtil {

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/10
  */
 @Repository
@@ -18,7 +18,7 @@ public interface ProductCategoryDao {
      * @param shopId 店铺id
      * @return 店铺列表
      */
-    List<ProductCategory> queryProductCategoryList(Integer shopId);
+    List<ProductCategory> queryProductCategoryList(Long shopId);
 
     /**
      * 批量新增商品类别
@@ -35,5 +35,5 @@ public interface ProductCategoryDao {
      * @param shopId            shopId
      * @return effectNum
      */
-    int deleteProductCategoryById(@Param("productCategoryId") Long productCategoryId, @Param("shopId") Integer shopId);
+    int deleteProductCategoryById(@Param("productCategoryId") Long productCategoryId, @Param("shopId") Long shopId);
 }

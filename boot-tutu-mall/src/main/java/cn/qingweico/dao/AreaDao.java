@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/2
  */
 @Repository
@@ -24,10 +24,10 @@ public interface AreaDao {
      * @param areaId 区域id
      * @return Area
      */
-    Area queryAreaById(Integer areaId);
+    Area queryAreaById(Long areaId);
 
     /**
-     * 插入区域信息
+     * 新增区域信息
      *
      * @param area Area
      * @return effectNum
@@ -48,7 +48,7 @@ public interface AreaDao {
      * @param areaId 区域id
      * @return effectNum
      */
-    int deleteAreaById(Integer areaId);
+    int deleteAreaById(Long areaId);
 
     /**
      * 批量删除区域列表

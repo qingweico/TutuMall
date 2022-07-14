@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/16
  */
 @Component
@@ -21,7 +21,7 @@ public class LoginHandleInterceptor implements HandlerInterceptor {
         Object args = request.getSession().getAttribute("user");
         if (args != null) {
             User user = (User) args;
-            if (user.getUserId() != null && user.getEnableStatus() == 1) {
+            if (user.getId() != null && user.getEnableStatus() == 1) {
                 return true;
             }
         }

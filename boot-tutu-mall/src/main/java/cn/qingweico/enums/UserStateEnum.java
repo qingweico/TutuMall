@@ -1,20 +1,20 @@
 package cn.qingweico.enums;
 
 /**
- * 有关用户操作状态枚举
+ * 用户操作状态枚举
  *
- * @author 周庆伟
+ * @author zqw
  * @date 2020/10/15
  */
 public enum UserStateEnum {
     /**
-     * 创建成功
+     * 成功
      */
-    SUCCESS(0, "操作成功"),
+    SUCCESS(0, "成功"),
     /**
      * 操作失败
      */
-    INNER_ERROR(-1001, "操作失败"),
+    INNER_ERROR(-1001, "内部错误"),
     /**
      * 用户信息为空
      */
