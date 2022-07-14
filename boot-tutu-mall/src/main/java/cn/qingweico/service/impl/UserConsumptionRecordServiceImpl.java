@@ -3,6 +3,8 @@ package cn.qingweico.service.impl;
 import cn.qingweico.dao.UserConsumptionRecordDao;
 import cn.qingweico.dao.UserPointRecordDao;
 import cn.qingweico.dto.UserConsumptionRecordExecution;
+import cn.qingweico.entity.Shop;
+import cn.qingweico.entity.User;
 import cn.qingweico.entity.UserConsumptionRecord;
 import cn.qingweico.entity.UserPointRecord;
 import cn.qingweico.enums.UserConsumptionRecordStateEnum;
@@ -55,7 +57,7 @@ public class UserConsumptionRecordServiceImpl implements UserConsumptionRecordSe
     /**
      * 添加消费记录
      *
-     * @param userConsumptionRecord 用户与所购买商品之间的关系映射
+     * @param userConsumptionRecord 用户消费记录
      * @return UserProductMapExecution
      */
     @Override
@@ -70,16 +72,16 @@ public class UserConsumptionRecordServiceImpl implements UserConsumptionRecordSe
         // 若本次消费能够积分
         if (userConsumptionRecord.getPoint() != null) {
             // 查询该顾客是否在店铺消费过
-            UserPointRecord userPointRecord = userPointRecordDao.queryUserPointRecord(userConsumptionRecord.getUser().getId(),
-                    userConsumptionRecord.getShop().getId());
+            UserPointRecord userPointRecord = userPointRecordDao.queryUserPointRecord(userConsumptionRecord.getUserId(),
+                    userConsumptionRecord.getShopId());
             if (userPointRecord != null) {
                 // 若之前消费过，即有过积分记录，则进行总积分的更新操作
                 userPointRecord.setPoint(userPointRecord.getPoint() + userConsumptionRecord.getPoint());
                 effectedNum = userPointRecordDao.updateUserPointRecord(userPointRecord);
             } else {
                 // 在店铺没有过消费记录，添加一条店铺积分信息
-                userPointRecord = compactUserPointRecord(userConsumptionRecord.getUser().getId(),
-                        userConsumptionRecord.getShop().getId(), userConsumptionRecord.getPoint());
+                userPointRecord = compactUserPointRecordCondition(userConsumptionRecord.getUserId(),
+                        userConsumptionRecord.getShopId(), userConsumptionRecord.getPoint());
                 effectedNum = userPointRecordDao.insertUserPointRecord(userPointRecord);
             }
             if (effectedNum <= 0) {
@@ -98,13 +100,17 @@ public class UserConsumptionRecordServiceImpl implements UserConsumptionRecordSe
      * @param point  积分
      * @return UserShopMap
      */
-    private UserPointRecord compactUserPointRecord(Long userId, Long shopId, Integer point) {
+    private UserPointRecord compactUserPointRecordCondition(Long userId, Long shopId, Integer point) {
         UserPointRecord userPointRecord = null;
         // 空值判断
         if (userId != null && shopId != null) {
             userPointRecord = new UserPointRecord();
-            userPointRecord.setUserId(userId);
-            userPointRecord.setShopId(shopId);
+            User user = new User();
+            user.setId(userId);
+            Shop shop = new Shop();
+            shop.setId(shopId);
+            userPointRecord.setUser(user);
+            userPointRecord.setShop(shop);
             userPointRecord.setCreateTime(new Date());
             userPointRecord.setPoint(point);
         }

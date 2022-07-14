@@ -1,11 +1,10 @@
-package cn.qingweico.controller.frontend;
+package cn.qingweico.controller.home;
 
 import cn.qingweico.common.Result;
 import cn.qingweico.entity.HeadLine;
 import cn.qingweico.entity.ShopCategory;
 import cn.qingweico.service.HeadLineService;
 import cn.qingweico.service.ShopCategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

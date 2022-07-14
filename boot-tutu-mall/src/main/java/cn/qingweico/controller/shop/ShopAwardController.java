@@ -135,7 +135,7 @@ public class ShopAwardController {
             award.setShopId(currentShop.getId());
             // 添加award
             AwardExecution awardExecution = awardService.addAward(award, thumbnail);
-            if (awardExecution.getState() == AwardStateEnum.SUCCESS.getState()) {
+            if (awardExecution.getState() == AwardStateEnum.ADD_SUCCESS.getState()) {
                 return Result.ok();
             } else {
                 return Result.errorMsg(awardExecution.getStateInfo());
@@ -157,7 +157,7 @@ public class ShopAwardController {
             Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
             award.setShopId(currentShop.getId());
             AwardExecution awardExecution = awardService.modifyAward(award, thumbnail);
-            if (awardExecution.getState() == AwardStateEnum.SUCCESS.getState()) {
+            if (awardExecution.getState() == AwardStateEnum.ADD_SUCCESS.getState()) {
                 return Result.ok(awardExecution.getAward().getEnableStatus());
             } else {
                 return Result.errorMsg(awardExecution.getStateInfo());

@@ -1,4 +1,4 @@
-package cn.qingweico.controller.frontend;
+package cn.qingweico.controller.home;
 
 import cn.qingweico.common.Result;
 import cn.qingweico.dto.ShopExecution;

@@ -33,7 +33,7 @@ public class LocalAuth {
      */
     private Date lastEditTime;
     /**
-     * 本地账号绑定的用户id
+     * 本地账号绑定的用户信息
      */
-    private Long userId;
+    private User user;
 }

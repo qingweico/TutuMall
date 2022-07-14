@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * -------------- 店铺 --------------
+ * -------------- 店铺管理 --------------
  *
  * @author zqw
  * @date 2020/10/05
@@ -125,7 +125,7 @@ public class ShopController {
     public Result getShopList(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
         Shop shopCondition = new Shop();
-        shopCondition.setCreator(user);
+        shopCondition.setCreatorId(user.getId());
         ShopExecution shopExecution = shopService.getShopList(shopCondition, 0, 10);
         HashMap<String, Object> map = new HashMap<>(2);
         if (shopExecution.getState() == ShopStateEnum.SUCCESS.getState()) {
@@ -171,7 +171,7 @@ public class ShopController {
      */
     public Result registerShop(HttpServletRequest request, Shop shop, CommonsMultipartFile shopImage) throws IOException {
         User user = (User) request.getSession().getAttribute("user");
-        shop.setCreator(user);
+        shop.setCreatorId(user.getId());
         ImageHolder imageHolder = new ImageHolder(shopImage.getInputStream(), shopImage.getOriginalFilename());
         imageHolder.setImageForm("THUMBNAIL");
         ShopExecution shopExecution = shopService.addShop(shop, imageHolder);
@@ -199,7 +199,7 @@ public class ShopController {
      */
     public Result modifyShop(HttpServletRequest request, Shop shop, CommonsMultipartFile shopImage) throws IOException {
         User user = (User) request.getSession().getAttribute("user");
-        shop.setCreator(user);
+        shop.setCreatorId(user.getId());
         ImageHolder imageHolder = null;
         if (shopImage != null) {
             imageHolder = new ImageHolder(shopImage.getInputStream(), shopImage.getOriginalFilename());

@@ -1,4 +1,4 @@
-package cn.qingweico.controller.frontend;
+package cn.qingweico.controller.home;
 
 import java.util.Date;
 
@@ -11,7 +11,6 @@ import cn.qingweico.dto.UserReceivingAwardRecordExecution;
 import cn.qingweico.entity.Award;
 import cn.qingweico.entity.User;
 import cn.qingweico.entity.UserReceivingAwardRecord;
-import cn.qingweico.entity.bo.AwardVO;
 import cn.qingweico.enums.GlobalStatusEnum;
 import cn.qingweico.enums.UserReceivingAwardRecordStateEnum;
 import cn.qingweico.service.AwardService;
@@ -20,21 +19,21 @@ import cn.qingweico.service.UserService;
 import cn.qingweico.utils.CodeUtil;
 import cn.qingweico.utils.HttpServletRequestUtil;
 import cn.qingweico.utils.ResponseStatusEnum;
-import jdk.nashorn.internal.objects.Global;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * -------------- 主页奖品 --------------
+ * -------------- 主页奖品记录 --------------
  *
  * @author zqw
  * @date 2020/10/15
  */
 @Slf4j
 @RestControllerAdvice
-@RequestMapping("/u")
-public class AwardController {
+@RequestMapping("/u/award/record")
+public class AwardRecordController {
     @Resource
     AwardService awardService;
     @Resource
@@ -61,46 +60,46 @@ public class AwardController {
 
     @Value("${wechat.prefix}")
     public void setUrlPrefix(String urlPrefix) {
-        AwardController.urlPrefix = urlPrefix;
+        AwardRecordController.urlPrefix = urlPrefix;
     }
 
     @Value("${wechat.middle}")
     public void setUrlMiddle(String urlMiddle) {
-        AwardController.urlMiddle = urlMiddle;
+        AwardRecordController.urlMiddle = urlMiddle;
     }
 
     @Value("${wechat.suffix}")
     public void setUrlSuffix(String urlSuffix) {
-        AwardController.urlSuffix = urlSuffix;
+        AwardRecordController.urlSuffix = urlSuffix;
     }
 
     @Value("${wechat.exchange.url}")
     public void setExchangeUrl(String exchangeUrl) {
-        AwardController.exchangeUrl = exchangeUrl;
+        AwardRecordController.exchangeUrl = exchangeUrl;
     }
 
     /**
-     * //
+     * 根据用户领取奖品记录id查询奖品信息
      *
      * @param request HttpServletRequest
      * @return Result
      */
-    @GetMapping("/getAwardByUserAwardId")
-    private Result getAwardById(HttpServletRequest request) {
-        long userAwardId = HttpServletRequestUtil.getLong(request, "userAwardId");
+    @GetMapping("/get")
+    private Result get(HttpServletRequest request) {
+        // 获取用户领取奖品记录id
+        long recordId = HttpServletRequestUtil.getLong(request, "recordId");
         // 空值判断
-        AwardVO awardBO = new AwardVO();
-        if (userAwardId > -1) {
+        if (recordId > -1) {
+            JSONObject jsonObject = new JSONObject();
             // 根据id获取顾客奖品的映射信息, 进而获取奖品Id
-            UserReceivingAwardRecord userReceivingAwardRecord = userReceivingAwardRecordService.getUserReceivingAwardRecordById(userAwardId);
+            UserReceivingAwardRecord userReceivingAwardRecord = userReceivingAwardRecordService.getUserReceivingAwardRecordById(recordId);
             // 根据奖品Id获取奖品信息
             Award award = awardService.getAwardById(userReceivingAwardRecord.getAward().getId());
-            awardBO.setAward(award);
-            awardBO.setUsedStatus(userReceivingAwardRecord.getUsedStatus());
-            awardBO.setUserAwardMap(userReceivingAwardRecord);
-            return Result.ok(award);
+            jsonObject.put("award", award);
+            jsonObject.put("userReceivingAwardRecord", userReceivingAwardRecord);
+            return Result.ok(jsonObject);
         }
-        log.error("userAwardId: {}", userAwardId);
+        log.error("recordId: {}", recordId);
         return Result.error();
     }
 

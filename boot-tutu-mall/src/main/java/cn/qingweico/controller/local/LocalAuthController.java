@@ -71,7 +71,7 @@ public class LocalAuthController {
             localAuth.setUser(user);
             // 绑定帐号
             LocalAuthExecution le = localAuthService.bindLocalAuth(localAuth);
-            if (le.getState() == LocalAuthStateEnum.SUCCESS.getState()) {
+            if (le.getState() == LocalAuthStateEnum.BIND_SUCCESS.getState()) {
                 return Result.ok(user.getUserType());
             } else {
                 return Result.errorMsg(le.getStateInfo());
@@ -116,7 +116,7 @@ public class LocalAuthController {
             // 修改平台帐号的用户密码
             LocalAuthExecution le = localAuthService.modifyLocalAuth(user.getId(), username, password,
                     newPassword);
-            if (le.getState() == LocalAuthStateEnum.SUCCESS.getState()) {
+            if (le.getState() == LocalAuthStateEnum.PASSWORD_SUCCESS.getState()) {
                 return Result.ok(user.getUserType());
             } else {
                 return Result.errorMsg(le.getStateInfo());

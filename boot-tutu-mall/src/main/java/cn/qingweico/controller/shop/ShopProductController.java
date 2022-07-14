@@ -6,6 +6,7 @@ import cn.qingweico.dto.ProductExecution;
 import cn.qingweico.entity.Product;
 import cn.qingweico.entity.ProductCategory;
 import cn.qingweico.entity.Shop;
+import cn.qingweico.enums.GlobalStatusEnum;
 import cn.qingweico.enums.ProductStateEnum;
 import cn.qingweico.service.ProductCategoryService;
 import cn.qingweico.service.ProductService;
@@ -110,7 +111,7 @@ public class ShopProductController {
     public Result getProductById(@RequestParam Long productId) {
         HashMap<String, Object> map = new HashMap<>(2);
         Product product = productService.getProductById(productId);
-        List<ProductCategory> productCategoryList = productCategoryService.getProductCategoryList(product.getShop().getId());
+        List<ProductCategory> productCategoryList = productCategoryService.getProductCategoryList(product.getShopId());
         map.put("product", product);
         map.put("productCategoryList", productCategoryList);
         return Result.ok(map);
@@ -155,7 +156,7 @@ public class ShopProductController {
                              ImageHolder imageHolder,
                              List<ImageHolder> productImageList) {
         Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
-        product.setShop(currentShop);
+        product.setShopId(currentShop.getId());
         ProductExecution productExecution = productService.addProduct(product, imageHolder, productImageList);
         if (productExecution.getState() == ProductStateEnum.SUCCESS.getState()) {
             return Result.ok();
@@ -179,9 +180,7 @@ public class ShopProductController {
                                 ImageHolder imageHolder,
                                 List<ImageHolder> productImageList) {
         Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
-        Shop shop = new Shop();
-        shop.setId(currentShop.getId());
-        product.setShop(shop);
+        product.setShopId(currentShop.getId());
         ProductExecution productExecution = productService.modifyProduct(product, imageHolder, productImageList);
         if (productExecution.getState() == ProductStateEnum.SUCCESS.getState()) {
             Integer productStatus = productExecution.getProduct().getEnableStatus();
@@ -207,11 +206,9 @@ public class ShopProductController {
                                                   boolean isBackstage) {
         Product productCondition = new Product();
         if (!isBackstage) {
-            productCondition.setEnableStatus(1);
+            productCondition.setEnableStatus(GlobalStatusEnum.available.getVal());
         }
-        Shop shop = new Shop();
-        shop.setId(shopId);
-        productCondition.setShop(shop);
+        productCondition.setShopId(shopId);
         if (productCategoryId != -1L) {
             ProductCategory productCategory = new ProductCategory();
             productCategory.setId(productCategoryId);

@@ -3,10 +3,10 @@ package cn.qingweico.controller.admin;
 import cn.qingweico.common.Constants;
 import cn.qingweico.common.Result;
 import cn.qingweico.entity.LocalAuth;
-import cn.qingweico.entity.UserInfo;
 import cn.qingweico.service.LocalAuthService;
 import cn.qingweico.utils.JwtUtils;
 import cn.qingweico.utils.ResponseStatusEnum;
+import com.google.gson.JsonObject;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,10 +40,10 @@ public class LoginController {
                 // 若帐号密码正确, 则验证用户的身份是否为超级管理员
                 if (localAuth.getUser().getUserType().equals(Constants.USER_TYPE_ADMIN)) {
                     String token = JwtUtils.createToken(localAuth.getUsername());
-                    UserInfo userInfo = new UserInfo();
-                    userInfo.setUsername(localAuth.getUsername());
-                    userInfo.setToken(token);
-                    return new Result(ResponseStatusEnum.LOGIN_SUCCESS, userInfo);
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("token", token);
+                    jsonObject.addProperty("username", localAuth.getUsername());
+                    return new Result(ResponseStatusEnum.LOGIN_SUCCESS, jsonObject);
                 } else {
                     return new Result(ResponseStatusEnum.UN_AUTH);
                 }

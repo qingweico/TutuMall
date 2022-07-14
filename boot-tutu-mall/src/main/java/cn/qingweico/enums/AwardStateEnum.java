@@ -13,13 +13,13 @@ public enum AwardStateEnum {
      */
     UPDATE_SUCCESS(-1, "修改商品成功"),
     /**
-     * 添加商品成功
-     */
-    ADD_SUCCESS(200, "添加商品成功"),
-    /**
      * 内部错误
      */
-    INNER_ERROR(-1001, "内部错误");
+    INNER_ERROR(-1001, "内部错误"),
+    /**
+     * 添加商品成功
+     */
+    ADD_SUCCESS(200, "添加商品成功");
 
     private final int state;
 
