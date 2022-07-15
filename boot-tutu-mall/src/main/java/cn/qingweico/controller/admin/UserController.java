@@ -56,7 +56,6 @@ public class UserController {
      */
     @PostMapping("/modify")
     private Result modifyUser(@RequestBody User user) {
-        // 从前端请求中获取用户Id以及可用状态
         if (user != null && user.getId() != null) {
             UserExecution ue = userService.modifyUser(user);
             if (ue.getState() == UserStateEnum.SUCCESS.getState()) {

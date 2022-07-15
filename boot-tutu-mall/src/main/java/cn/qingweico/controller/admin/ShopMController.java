@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/a/shop")
-public class ShopController {
+public class ShopMController {
     @Resource
     private AreaDao areaDao;
     @Resource

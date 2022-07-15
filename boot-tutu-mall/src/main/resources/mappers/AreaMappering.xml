@@ -1,72 +1,61 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.qingweico.dao.AreaDao">
-    <select id="queryAllArea" resultType="cn.qingweico.entity.Area">
-        SELECT
-            area_id,
-            area_name,
-            priority,
-            create_time,
-            last_edit_time
-        FROM
-            tb_area
-        ORDER BY
-            priority
-        DESC
-    </select>
-    <select id="queryAreaById" resultType="cn.qingweico.entity.Area">
-        select
-            area_id,
-            area_name,
-            priority,
-            create_time,
-            last_edit_time
-        from
-            tb_area
-        where
-            area_id = #{areaId}
-    </select>
-    <insert id="insertArea" useGeneratedKeys="true" keyProperty="areaId" keyColumn="area_id">
-        INSERT INTO
-            tb_area
-            (
-                area_name,
-                priority,
-                create_time,
-                last_edit_time
-            )
-        VALUES
-            (
-                #{areaName},
-                #{priority},
-                #{createTime},
-                #{lastEditTime}
-            )
-    </insert>
-    <update id="updateArea" parameterType="Area">
-        update tb_area
-        <set>
-            <if test="areaName != null">area_name = #{areaName},</if>
-            <if test="priority != null">priority = #{priority},</if>
-            <if test="lastEditTime != null">last_edit_time = #{lastEditTime}</if>
-        </set>
-        where area_id = #{areaId}
-    </update>
-    <delete id="batchDeleteArea" parameterType="long">
-        DELETE FROM
-            tb_area
-        WHERE
-            area_id
-        IN
-            <foreach collection="list" item="areaId" open="(" separator=","
-                     close=")">
-                #{areaId}
-            </foreach>
-    </delete>
-    <delete id="deleteAreaById" parameterType="int">
-        delete from
-            tb_area
-        where
-            area_id = #{areaId}
-    </delete>
+	<select id="queryAllArea" resultType="cn.qingweico.entity.Area">
+		SELECT id,
+		       name,
+		       priority,
+		       create_time,
+		       last_edit_time
+		FROM t_area
+		ORDER BY priority
+				DESC
+	</select>
+	<select id="queryAreaById" resultType="cn.qingweico.entity.Area">
+		select id,
+		       name,
+		       priority,
+		       create_time,
+		       last_edit_time
+		from t_area
+		where id = #{id}
+	</select>
+	<insert id="insertArea">
+		INSERT INTO t_area
+		(id,
+		 name,
+		 priority,
+		 create_time,
+		 last_edit_time)
+		VALUES (#{id},
+		        #{name},
+		        #{priority},
+		        #{createTime},
+		        #{lastEditTime})
+	</insert>
+	<update id="updateArea" parameterType="cn.qingweico.entity.Area">
+		update t_area
+		<set>
+			<if test="name != null">area_name = #{areaName},</if>
+			<if test="priority != null">priority = #{priority},</if>
+			<if test="lastEditTime != null">last_edit_time = #{lastEditTime}</if>
+		</set>
+		where area_id = #{areaId}
+	</update>
+	<delete id="batchDeleteArea" parameterType="long">
+		DELETE FROM
+		t_area
+		WHERE
+		area_id
+		IN
+		<foreach collection="list" item="areaId" open="(" separator=","
+		         close=")">
+			#{areaId}
+		</foreach>
+	</delete>
+	<delete id="deleteAreaById" parameterType="int">
+		delete
+		from t_area
+		where area_id = #{areaId}
+	</delete>
 </mapper>

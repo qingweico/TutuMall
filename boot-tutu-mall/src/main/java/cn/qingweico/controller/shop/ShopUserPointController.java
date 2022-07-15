@@ -5,7 +5,7 @@ import cn.qingweico.dto.UserPointRecordExecution;
 import cn.qingweico.entity.Shop;
 import cn.qingweico.entity.User;
 import cn.qingweico.entity.UserPointRecord;
-import cn.qingweico.service.UserPointRecordMapService;
+import cn.qingweico.service.UserPointRecordService;
 import cn.qingweico.utils.HttpServletRequestUtil;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ShopUserPointController {
 
     @Resource
-    private UserPointRecordMapService userShopMapService;
+    private UserPointRecordService userShopMapService;
 
 
     /**

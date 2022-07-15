@@ -3,7 +3,7 @@ package cn.qingweico.service.impl;
 import cn.qingweico.dao.UserPointRecordDao;
 import cn.qingweico.dto.UserPointRecordExecution;
 import cn.qingweico.entity.UserPointRecord;
-import cn.qingweico.service.UserPointRecordMapService;
+import cn.qingweico.service.UserPointRecordService;
 import cn.qingweico.utils.PageCalculatorUtil;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @Service
-public class UserPointRecordMapServiceImpl implements UserPointRecordMapService {
+public class UserPointRecordMapServiceImpl implements UserPointRecordService {
 
     @Resource
     private UserPointRecordDao userPointRecordDao;

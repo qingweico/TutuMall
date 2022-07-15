@@ -5,7 +5,7 @@ import cn.qingweico.dto.UserPointRecordExecution;
 import cn.qingweico.entity.Shop;
 import cn.qingweico.entity.User;
 import cn.qingweico.entity.UserPointRecord;
-import cn.qingweico.service.UserPointRecordMapService;
+import cn.qingweico.service.UserPointRecordService;
 import cn.qingweico.utils.HttpServletRequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/u/point/")
 public class UserShopPointController {
     @Resource
-    private UserPointRecordMapService userShopMapService;
+    private UserPointRecordService userShopMapService;
 
     /**
      * 列出用户的积分情况

@@ -7,7 +7,7 @@ import cn.qingweico.entity.Award;
 import cn.qingweico.entity.User;
 import cn.qingweico.entity.UserPointRecord;
 import cn.qingweico.service.AwardService;
-import cn.qingweico.service.UserPointRecordMapService;
+import cn.qingweico.service.UserPointRecordService;
 import cn.qingweico.utils.HttpServletRequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,12 +29,12 @@ import java.util.Map;
 @Slf4j
 @RestControllerAdvice
 @RequestMapping("/u/award")
-public class ShopAwardController {
+public class HomeAwardController {
 
     @Resource
     private AwardService awardService;
     @Resource
-    private UserPointRecordMapService userShopMapService;
+    private UserPointRecordService userPointRecordService;
 
 
     /**
@@ -65,7 +65,7 @@ public class ShopAwardController {
             // 空值判断
             if (user != null && user.getId() != null) {
                 // 获取该用户在本店铺的积分信息
-                UserPointRecord userShopMap = userShopMapService.getUserPointRecord(user.getId(), shopId);
+                UserPointRecord userShopMap = userPointRecordService.getUserPointRecord(user.getId(), shopId);
                 if (userShopMap == null) {
                     map.put("totalPoint", 0);
                 } else {

@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
- * -------------- 店铺奖品 --------------
+ * -------------- 店家店铺奖品管理 --------------
  * @author zqw
  * @date 2020/10/15
  */
@@ -73,7 +73,6 @@ public class ShopAwardController {
      */
     @GetMapping("/get")
     private Result getAwardById(HttpServletRequest request) {
-        // 从request里边获取前端传递过来的awardId
         long awardId = HttpServletRequestUtil.getLong(request, "awardId");
         // 空值判断
         if (awardId > -1) {

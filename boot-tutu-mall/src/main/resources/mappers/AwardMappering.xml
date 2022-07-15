@@ -5,10 +5,10 @@
 <mapper namespace="cn.qingweico.dao.AwardDao">
 	<select id="queryAwardList" resultType="cn.qingweico.entity.Award">
 		SELECT
-		award_id,
-		award_name,
-		award_description,
-		award_image,
+		id,
+		name,
+		desc,
+		img_url,
 		point,
 		priority,
 		create_time,
@@ -16,19 +16,19 @@
 		enable_status,
 		shop_id
 		FROM
-		tb_award
+		t_award
 		<where>
 			<!-- 按奖品名模糊查询 -->
-			<if test="awardCondition.awardName!=null">
-				and award_name like '%${awardCondition.awardName}%'
+			<if test="condition.name!=null">
+				and name like '%${condition.name}%'
 			</if>
 			<!-- 按店铺查询 -->
-			<if test="awardCondition.shopId!=null">
-				and shop_id = #{awardCondition.shopId}
+			<if test="condition.shopId!=null">
+				and shop_id = #{condition.shopId}
 			</if>
 			<!-- 按可用状态查询 -->
-			<if test="awardCondition.enableStatus!=null">
-				and enable_status = #{awardCondition.enableStatus}
+			<if test="condition.enableStatus!=null">
+				and enable_status = #{condition.enableStatus}
 			</if>
 		</where>
 		ORDER BY
@@ -37,34 +37,35 @@
 		LIMIT #{rowIndex},#{pageSize};
 	</select>
 	<select id="queryAwardById" resultType="cn.qingweico.entity.Award" parameterType="Long">
-		SELECT award_id,
-		       award_name,
-		       award_description,
-		       award_image,
-		       point,
-		       priority,
-		       create_time,
-		       last_edit_time,
-		       enable_status,
-		       shop_id
-		FROM tb_award
+		SELECT id,
+		       name,
+			desc,
+			img_url,
+			point,
+			priority,
+			create_time,
+			last_edit_time,
+			enable_status,
+			shop_id
+		FROM t_award
 		WHERE award_id = #{awardId}
 	</select>
-	<insert id="insertAward" parameterType="Award"
-	        useGeneratedKeys="true" keyProperty="awardId" keyColumn="award_id">
-		INSERT INTO tb_award
-		(award_name,
-		 award_description,
-		 award_image,
+	<insert id="insertAward" parameterType="cn.qingweico.entity.Award">
+		INSERT INTO t_award
+		(id
+			 name,
+		 desc,
+		 img_url,
 		 point,
 		 priority,
 		 create_time,
 		 last_edit_time,
 		 enable_status,
 		 shop_id)
-		VALUES (#{awardName},
-		        #{awardDescription},
-		        #{awardImage},
+		VALUES (#{id},
+		        #{name},
+		        #{desc},
+		        #{imgUrl},
 		        #{point},
 		        #{priority},
 		        #{createTime},
@@ -72,29 +73,28 @@
 		        #{enableStatus},
 		        #{shopId})
 	</insert>
-	<update id="updateAward" parameterType="Award"
-	        keyProperty="award_id" useGeneratedKeys="true">
+	<update id="updateAward" parameterType="cn.qingweico.entity.Award">
 		UPDATE
-		tb_award
+		t_award
 		<set>
-			<if test="awardName != null">award_name = #{awardName},</if>
-			<if test="awardDescription != null">award_description = #{awardDescription},</if>
-			<if test="awardImage != null">award_image = #{awardImage},</if>
+			<if test="name != null">award_name = #{name},</if>
+			<if test="desc != null">desc = #{desc},</if>
+			<if test="imgUrl != null">img_url = #{imgUrl},</if>
 			<if test="point != null">point = #{point},</if>
 			<if test="priority != null">priority = #{priority},</if>
 			<if test="lastEditTime != null">last_edit_time = #{lastEditTime},</if>
 			<if test="enableStatus != null">enable_status = #{enableStatus}</if>
 		</set>
 		WHERE
-		award_id = #{awardId}
+		id = #{awardId}
 		AND
 		shop_id = #{shopId}
 
 	</update>
 	<delete id="deleteAward">
 		DELETE
-		FROM tb_award
-		WHERE award_id = #{awardId}
+		FROM t_award
+		WHERE id = #{id}
 		  AND shop_id = #{shopId}
 	</delete>
 </mapper>

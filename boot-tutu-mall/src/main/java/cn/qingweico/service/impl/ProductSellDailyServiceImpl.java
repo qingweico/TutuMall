@@ -4,6 +4,7 @@ import cn.qingweico.dao.ProductSellDailyDao;
 import cn.qingweico.entity.ProductSellDaily;
 import cn.qingweico.service.ProductSellDailyService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -17,8 +18,10 @@ import java.util.List;
 @Slf4j
 @Service
 public class ProductSellDailyServiceImpl implements ProductSellDailyService {
-    @Resource
+
+    @Autowired
     ProductSellDailyDao productSellDailyDao;
+
 
     @Override
     public void dailyCalculate() {

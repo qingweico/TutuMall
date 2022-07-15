@@ -24,7 +24,7 @@ import java.util.Map;
  */
 @Slf4j
 @RestControllerAdvice
-@RequestMapping("/u")
+@RequestMapping("/u/product")
 public class ProductDetailController {
     @Resource
     ProductService productService;
@@ -73,7 +73,7 @@ public class ProductDetailController {
      * @param request HttpServletRequest
      * @return Result
      */
-    @GetMapping("/productDetailPageInfo")
+    @GetMapping("/detail")
     public Result productDetailPageInfo(HttpServletRequest request) {
         long productId = HttpServletRequestUtil.getLong(request, "productId");
         Map<String, Object> map = new HashMap<>(2);
@@ -100,7 +100,7 @@ public class ProductDetailController {
      * @param request  HttpServletRequest
      * @param response HttpServletResponse
      */
-    @GetMapping(value = "/generateQrCodeForProduct")
+    @GetMapping(value = "/generateQrCode")
     private void generateQrCodeForProduct(HttpServletRequest request, HttpServletResponse response) {
         // 获取前端传递过来的商品Id
         long productId = HttpServletRequestUtil.getLong(request, "productId");

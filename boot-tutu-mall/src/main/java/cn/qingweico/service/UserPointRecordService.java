@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * @date 2020/10/14
  */
 @Repository
-public interface UserPointRecordMapService {
+public interface UserPointRecordService {
 
     /**
      * 根据传入的查询信息分页查询用户积分列表
