@@ -13,12 +13,12 @@ public interface AwardService {
     /**
      * 根据传入的条件分页返回奖品列表,并返回该查询条件下的总数
      *
-     * @param awardCondition 查询条件
-     * @param page           起始索引
-     * @param pageSize       每页的数量
+     * @param condition 查询条件
+     * @param page      起始索引
+     * @param pageSize  每页的数量
      * @return AwardExecution
      */
-    AwardExecution getAwardList(Award awardCondition, int page, int pageSize);
+    AwardExecution getAwardList(Award condition, int page, int pageSize);
 
     /**
      * 根据awardId查询奖品信息

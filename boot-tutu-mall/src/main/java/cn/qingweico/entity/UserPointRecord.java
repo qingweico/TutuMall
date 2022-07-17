@@ -29,7 +29,7 @@ public class UserPointRecord {
      */
     private User user;
     /**
-     * 店铺信息
+     * 店铺信息(组合查询使用)
      */
     private Shop shop;
 }

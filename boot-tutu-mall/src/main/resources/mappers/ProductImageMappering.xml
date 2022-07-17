@@ -1,47 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.qingweico.dao.ProductImageDao">
-    <select id="queryProductImageList" resultType="cn.qingweico.entity.ProductImage">
-        SELECT
-        product_image_id,
-        image_address,
-        image_description,
-        priority,
-        create_time,
-        product_id
-        FROM
-        tb_product_image
-        WHERE
-        product_id = #{productId}
-        ORDER BY
-        product_image_id
-        ASC
-    </select>
-    <insert id="batchInsertProductImage" parameterType="java.util.List">
-        insert into
-        tb_product_image
-        (
-        image_address,
-        image_description,
-        priority,
-        create_time,
-        product_id
-        )
-        values
-        <foreach collection="list" item="productImage" index="index" separator=",">
-            (
-            #{productImage.imageAddress},
-            #{productImage.imageDescription},
-            #{productImage.priority},
-            #{productImage.createTime},
-            #{productImage.productId}
-            )
-        </foreach>
-    </insert>
-    <delete id="deleteProductImageByProductId">
-        delete from
-        tb_product_image
-        where
-        product_id = #{peoductId}
-    </delete>
+	<select id="queryProductImageList" resultType="cn.qingweico.entity.ProductImage">
+		SELECT id,
+		       img_url,
+		       `desc`,
+		       priority,
+		       create_time,
+		       product_id
+		FROM t_product_image
+		WHERE product_id = #{productId}
+		ORDER BY create_time
+				ASC
+	</select>
+	<insert id="batchInsertProductImage" parameterType="java.util.List">
+		insert into
+		t_product_image
+		(
+		id,
+		img_url,
+		`desc`,
+		priority,
+		create_time,
+		product_id
+		)
+		values
+		<foreach collection="list" item="productImage" index="index" separator=",">
+			(
+			#{productImage.imgUrl},
+			#{productImage.desc},
+			#{productImage.priority},
+			#{productImage.createTime},
+			#{productImage.productId}
+			)
+		</foreach>
+	</insert>
+	<delete id="deleteProductImageByProductId">
+		delete
+		from t_product_image
+		where product_id = #{peoductId}
+	</delete>
 </mapper>

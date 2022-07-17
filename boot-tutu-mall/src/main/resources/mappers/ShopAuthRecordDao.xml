@@ -1,116 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.qingweico.dao.ShopAuthRecordDao">
-    <resultMap id="shopAuthResultMap" type="ShopAuthMap">
-        <id column="shop_auth_id" property="shopAuthId"/>
-        <result column="title" property="title"/>
-        <result column="title_flag" property="titleFlag"/>
-        <result column="create_time" property="createTime"/>
-        <result column="last_edit_time" property="lastEditTime"/>
-        <result column="enable_status" property="enableStatus"/>
-        <association property="employee" column="employee_id"
-                     javaType="User">
-            <id column="user_id" property="userId"/>
-            <result column="name" property="name"/>
-        </association>
-        <association property="shop" column="shop_id"
-                     javaType="Shop">
-            <id column="shop_id" property="shopId"/>
-            <result column="shop_name" property="shopName"/>
-        </association>
-    </resultMap>
-    <select id="queryShopAuthMapListByShopId" resultMap="shopAuthResultMap">
-        SELECT
-            smap.shop_auth_id,
-            smap.title,
-            smap.title_flag,
-            smap.create_time,
-            smap.last_edit_time,
-            smap.enable_status,
-            p.user_id,
-            p.name,
-            s.shop_id,
-            s.shop_name
-        FROM
-            tb_shop_auth_map smap,
-            tb_user p,
-            tb_shop s
-        WHERE
-            smap.employee_id = p.user_id
-        AND
-            smap.shop_id = s.shop_id
-        AND
-            smap.shop_id = #{shopId}
-        LIMIT #{rowIndex},#{pageSize};
-    </select>
-    <select id="queryShopAuthRecordById" resultMap="shopAuthResultMap">
-        SELECT
-            smap.shop_auth_id,
-            smap.title,
-            smap.title_flag,
-            smap.create_time,
-            smap.last_edit_time,
-            smap.enable_status,
-            p.user_id,
-            p.name,
-            s.shop_id,
-            s.shop_name
-        FROM
-            tb_shop_auth_map smap,
-            tb_user p,
-            tb_shop s
-        WHERE
-            smap.employee_id = p.user_id
-        AND
-            smap.shop_id = s.shop_id
-        AND
-            smap.shop_auth_id = #{shopAuthId};
-    </select>
+	<resultMap id="shopAuthResultMap" type="cn.qingweico.entity.ShopAuthRecord">
+		<id column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="title_flag" property="titleFlag"/>
+		<result column="create_time" property="createTime"/>
+		<result column="last_edit_time" property="lastEditTime"/>
+		<result column="enable_status" property="enableStatus"/>
+		<result column="shop_id" property="shopId"/>
+		<result column="user_id" property="userId"/>
+	</resultMap>
+	<select id="queryShopAuthMapListByShopId" resultMap="shopAuthResultMap">
+		SELECT sar.id,
+		       sar.title,
+		       sar.title_flag,
+		       sar.create_time,
+		       sar.last_edit_time,
+		       sar.enable_status,
+		       u.id,
+		       u.name,
+		       s.id,
+		       s.name
+		FROM t_shop_auth_record sar,
+		     t_user u,
+		     t_shop s
+		WHERE sar.user_id = u.id
+		  AND sar.shop_id = s.id
+		  AND sar.shop_id = #{shopId} LIMIT #{rowIndex}
+			, #{pageSize};
+	</select>
+	<select id="queryShopAuthRecordById" resultMap="shopAuthResultMap">
+		SELECT sar.id,
+		       sar.title,
+		       sar.title_flag,
+		       sar.create_time,
+		       sar.last_edit_time,
+		       sar.enable_status,
+		       u.id,
+		       u.name,
+		       s.id,
+		       s.name
+		FROM t_shop_auth_record sar,
+		     t_user u,
+		     t_shop s
+		WHERE sar.user_id = u.id
+		  AND sar.shop_id = s.id
+		  AND sar.id = #{id};
+	</select>
 
-    <insert id="insertShopAuthRecord">
-        INSERT INTO
-            tb_shop_auth_map
-        (
-            employee_id,
-            shop_id,
-            title,
-            title_flag,
-            create_time,
-            last_edit_time,
-            enable_status
-        )
-        VALUES
-        (
-            #{employee.userId},
-            #{shop.shopId},
-            #{title},
-            #{titleFlag},
-            #{createTime},
-            #{lastEditTime},
-            #{enableStatus}
-        )
-    </insert>
+	<insert id="insertShopAuthRecord">
+		INSERT INTO tb_shop_auth_record
+		(id,
+		 user_id,
+		 shop_id,
+		 title,
+		 title_flag,
+		 create_time,
+		 last_edit_time,
+		 enable_status)
+		VALUES (#{id},
+		        #{userId},
+		        #{shopId},
+		        #{title},
+		        #{titleFlag},
+		        #{createTime},
+		        #{lastEditTime},
+		        #{enableStatus})
+	</insert>
 
-    <update id="updateShopAuthRecord" parameterType="ShopAuthMap"
-            keyProperty="shop_auth_id" useGeneratedKeys="true">
-        UPDATE
-            tb_shop_auth_map
-        <set>
-            <if test="title != null">title = #{title},</if>
-            <if test="titleFlag != null">title_flag = #{titleFlag},</if>
-            <if test="enableStatus != null">enable_status = #{enableStatus},</if>
-            <if test="lastEditTime != null">last_edit_time = #{lastEditTime}</if>
-        </set>
-        WHERE
-            shop_auth_id = #{shopAuthId}
-    </update>
+	<update id="updateShopAuthRecord" parameterType="cn.qingweico.entity.ShopAuthRecord">
+		UPDATE
+		t_shop_auth_record
+		<set>
+			<if test="title != null">title = #{title},</if>
+			<if test="titleFlag != null">title_flag = #{titleFlag},</if>
+			<if test="enableStatus != null">enable_status = #{enableStatus},</if>
+			<if test="lastEditTime != null">last_edit_time = #{lastEditTime}</if>
+		</set>
+		WHERE
+		id = #{id}
+	</update>
 
-    <delete id="deleteShopAuthRecord">
-        DELETE FROM
-            tb_shop_auth_map
-        WHERE
-            shop_auth_id = #{shopAuthId}
-    </delete>
+	<delete id="deleteShopAuthRecord">
+		DELETE
+		FROM t_shop_auth_map
+		WHERE id = #{id}
+	</delete>
 </mapper>

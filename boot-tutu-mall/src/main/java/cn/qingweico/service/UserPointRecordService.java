@@ -14,12 +14,12 @@ public interface UserPointRecordService {
     /**
      * 根据传入的查询信息分页查询用户积分列表
      *
-     * @param userShopMapCondition 查询条件
+     * @param condition 查询条件
      * @param page                 查询起始索引
      * @param pageSize             每页的数量
      * @return UserShopMapExecution
      */
-    UserPointRecordExecution userPointRecordList(UserPointRecord userShopMapCondition, int page, int pageSize);
+    UserPointRecordExecution userPointRecordList(UserPointRecord condition, int page, int pageSize);
 
     /**
      * 根据用户id和店铺id返回该用户在某个店铺的积分情况

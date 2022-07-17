@@ -108,7 +108,7 @@ public class JsonUtils {
 
             list = gson.fromJson(jsonArray, listType);
         } catch (JsonSyntaxException e) {
-            e.printStackTrace();
+            log.error("{}", e.getMessage());
         }
         return list;
     }
@@ -123,7 +123,7 @@ public class JsonUtils {
         try {
             list = (ArrayList<?>) gson.fromJson(jsonArray, clazz);
         } catch (JsonSyntaxException e) {
-            e.printStackTrace();
+            log.error("{}", e.getMessage());
         }
         return list;
     }

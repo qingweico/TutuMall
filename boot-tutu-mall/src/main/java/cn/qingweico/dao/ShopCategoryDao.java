@@ -15,10 +15,10 @@ public interface ShopCategoryDao {
     /**
      * 查询店铺类别列表
      *
-     * @param shopCategoryCondition 查询条件
+     * @param condition 查询条件
      * @return 店铺类别列表
      */
-    List<ShopCategory> queryShopCategory(@Param("shopCategoryCondition") ShopCategory shopCategoryCondition);
+    List<ShopCategory> queryShopCategory(ShopCategory condition);
 
     /**
      * 通过id返回唯一的店铺类别信息

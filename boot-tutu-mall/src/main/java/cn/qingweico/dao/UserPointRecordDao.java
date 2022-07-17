@@ -21,7 +21,7 @@ public interface UserPointRecordDao {
      * @param pageSize        每页的数量
      * @return 店铺积分列表
      */
-    List<UserPointRecord> queryUserShopPointList(@Param("userPointRecord") UserPointRecord userPointRecord,
+    List<UserPointRecord> queryUserShopPointList(@Param("condition") UserPointRecord userPointRecord,
                                                  @Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
 
     /**

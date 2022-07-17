@@ -18,7 +18,7 @@ public interface HeadLineDao {
      * @param headLineCondition 查询条件 : 头条名称
      * @return 头条列表
      */
-    List<HeadLine> queryHeadLine(@Param("headLineCondition") HeadLine headLineCondition);
+    List<HeadLine> queryHeadLine(@Param("condition") HeadLine headLineCondition);
 
     /**
      * 根据头条id返回唯一的头条信息

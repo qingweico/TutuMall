@@ -30,22 +30,22 @@ public class ShopCategoryServiceImpl extends BaseService implements ShopCategory
     ShopCategoryDao shopCategoryDao;
 
     @Override
-    public List<ShopCategory> getShopCategoryList(ShopCategory shopCategoryCondition) {
+    public List<ShopCategory> getShopCategoryList(ShopCategory condition) {
         List<ShopCategory> shopCategoryList;
         String key = SHOP_CATEGORY_LIST_KEY;
         String jsonData;
-        if (shopCategoryCondition == null) {
+        if (condition == null) {
             // 一级分类
             key = key + "_First_Level";
-        } else if (shopCategoryCondition.getParent() != null && shopCategoryCondition.getParent().getId() != null) {
+        } else if (condition.getParent() != null && condition.getParent().getId() != null) {
             // 该分类下所有的子类别
-            key = key + "_Parent_" + shopCategoryCondition.getParent().getId();
+            key = key + "_Parent_" + condition.getParent().getId();
         } else {
             //所有子类别
             key = key + "_All";
         }
         if (!jedisKeys.exists(key)) {
-            shopCategoryList = shopCategoryDao.queryShopCategory(shopCategoryCondition);
+            shopCategoryList = shopCategoryDao.queryShopCategory(condition);
             log.info("查询数据库");
             jsonData = JsonUtils.objectToJson(shopCategoryList);
             jedisStrings.set(key, jsonData);

@@ -39,12 +39,12 @@ public interface ShopService {
     /**
      * 根据shopCondition分页返回相应的店铺列表
      *
-     * @param shopCondition 查询条件
+     * @param condition 查询条件
      * @param page          开始查询的位置
      * @param pageSize      每页的数量
      * @return ShopExecution
      */
-    ShopExecution getShopList(Shop shopCondition, int page, int pageSize);
+    ShopExecution getShopList(Shop condition, int page, int pageSize);
 
     /**
      * 更新店铺状态

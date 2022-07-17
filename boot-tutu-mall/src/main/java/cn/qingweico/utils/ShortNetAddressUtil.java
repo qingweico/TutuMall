@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * 使用微信公众号
  * 短链接的生成(2021/3/15以后停止该接口新生成的短链)
- * @author 周庆伟
+ * @author zqw
  * @date 2021/2/25
  */
 

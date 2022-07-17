@@ -1,56 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.qingweico.dao.WeChatAuthDao">
-    <resultMap id="weChatAuthResultMap" type="WeChatAuth">
-        <id column="wechat_auth_id" property="weChatAuthId"/>
-        <result column="open_id" property="openId"/>
-        <result column="create_time" property="createTime"/>
-        <association property="user" column="user_id" javaType="User">
-            <id column="user_id" property="userId"/>
-            <result column="name" property="name"/>
-            <result column="gender" property="gender"/>
-            <result column="email" property="email"/>
-            <result column="profile_image" property="profileImage"/>
-            <result column="user_type" property="userType"/>
-            <result column="create_time" property="createTime"/>
-            <result column="last_edit_time" property="lastEditTime"/>
-            <result column="enable_status" property="enableStatus"/>
-        </association>
-    </resultMap>
-    <select id="queryWeChatInfoByOpenId" resultMap="weChatAuthResultMap"
-            parameterType="String">
-        SELECT
-        w.wechat_auth_id,
-        w.open_id,
-        w.create_time,
-        u.user_id,
-        u.name,
-        u.gender,
-        u.email,
-        u.profile_image,
-        u.user_type,
-        u.create_time,
-        u.last_edit_time,
-        u.enable_status
-        FROM
-        tb_wechat_auth w
-        LEFT JOIN
-        tb_user u
-        ON
-        w.user_id = u.user_id
-        WHERE
-        w.open_id = #{openId}
-    </select>
-    <insert id="insertWeChatAuth" parameterType="WeChatAuth"
-            useGeneratedKeys="true" keyProperty="weChatAuthId" keyColumn="wechat_auth_id">
-        INSERT INTO
-        tb_wechat_auth(user_id, open_id, create_time)
-        VALUES
-        (
-        #{user.userId},
-        #{openId},
-        #{createTime}
-        )
-    </insert>
+	<resultMap id="weChatAuthResultMap" type="cn.qingweico.entity.WeChatAuthRecord">
+		<id column="id" property="id"/>
+		<result column="open_id" property="openId"/>
+		<result column="create_time" property="createTime"/>
+		<association property="user" column="user_id" javaType="cn.qingweico.entity.User">
+			<id column="user_id" property="id"/>
+			<result column="name" property="name"/>
+			<result column="gender" property="gender"/>
+			<result column="email" property="email"/>
+			<result column="avatar" property="avatar"/>
+			<result column="user_type" property="userType"/>
+			<result column="create_time" property="createTime"/>
+			<result column="last_edit_time" property="lastEditTime"/>
+			<result column="enable_status" property="enableStatus"/>
+		</association>
+	</resultMap>
+	<select id="queryWeChatInfoByOpenId" resultMap="weChatAuthResultMap"
+	        parameterType="String">
+		SELECT war.id,
+		       war.open_id,
+		       war.create_time,
+		       u.id,
+		       u.name,
+		       u.gender,
+		       u.email,
+		       u.avatar,
+		       u.user_type,
+		       u.create_time,
+		       u.last_edit_time,
+		       u.enable_status
+		FROM t_wechat_auth_record war
+			     LEFT JOIN
+		     t_user u
+		     ON
+			     war.user_id = u.id
+		WHERE war.open_id = #{openId}
+	</select>
+	<insert id="insertWeChatAuth" parameterType="cn.qingweico.entity.WeChatAuthRecord">
+		INSERT INTO t_wechat_auth_record(id, user_id, open_id, create_time)
+		VALUES (#{id}, #{user.userId},
+		        #{openId},
+		        #{createTime})
+	</insert>
 </mapper>

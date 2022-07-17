@@ -1,86 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.qingweico.dao.ShopDao">
-    <resultMap id="shopMap" type="Shop">
-        <id column="shop_id" property="shopId"/>
-        <result column="shop_name" property="shopName"/>
-        <result column="shop_description" property="shopDescription"/>
-        <result column="shop_address" property="shopAddress"/>
+    <resultMap id="shopMap" type="cn.qingweico.entity.Shop">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="desc" property="desc"/>
+        <result column="address" property="address"/>
         <result column="phone" property="phone"/>
-        <result column="shop_image" property="shopImage"/>
+        <result column="img_url" property="imgUrl"/>
         <result column="priority" property="priority"/>
         <result column="create_time" property="createTime"/>
         <result column="last_edit_time" property="lastEditTime"/>
         <result column="enable_status" property="enableStatus"/>
-        <result column="advice" property="advice"/>
-        <association column="area_id" property="area" javaType="Area">
-            <id column="area_id" property="areaId"/>
-            <result column="area_name" property="areaName"/>
-        </association>
-        <association column="shop_category_id" property="shopCategory" javaType="ShopCategory">
-            <id column="shop_category_id" property="shopCategoryId"/>
-            <result column="shop_category_name" property="shopCategoryName"/>
-        </association>
-        <association column="owner_id" property="user" javaType="User">
-            <id column="user_id" property="userId"/>
+        <result column="area_id" property="areaId"/>
+        <result column="creator_id" property="creatorId"/>
+        <association column="shop_category_id" property="shopCategory" javaType="cn.qingweico.entity.ShopCategory">
+            <id column="id" property="id"/>
             <result column="name" property="name"/>
         </association>
+
     </resultMap>
     <select id="queryShopList" resultMap="shopMap">
         select
-            s.shop_id,
-            s.shop_name,
-            s.shop_description,
-            s.shop_address,
+            s.id,
+            s.name,
+            s.desc,
+            s.address,
             s.phone,
-            s.shop_image,
+            s.img_url;,
             s.priority,
             s.create_time,
             s.last_edit_time,
             s.enable_status,
-            s.advice,
-            a.area_id,
-            a.area_name,
-            sc.shop_category_id,
-            sc.shop_category_name
+            a.id,
+            a.name,
+            sc.id,
+            sc.name
         FROM
-            tb_shop s,
-            tb_area a,
-            tb_shop_category sc
+            t_shop s,
+            t_area a,
+            t_shop_category sc
         <where>
-            <if test="shopCondition.shopCategory != null and shopCondition.shopCategory.shopCategoryId != null">
-                and s.shop_category_id = #{shopCondition.shopCategory.shopCategoryId}
+            <if test="condition.shopCategory != null and condition.shopCategory.id != null">
+                and s.shop_category_id = #{condition.shopCategory.id}
             </if>
-            <if test="shopCondition.shopCategory != null and shopCondition.shopCategory.parent != null and
-                shopCondition.shopCategory.parent.shopCategoryId != null">
+            <if test="condition.shopCategory != null and condition.shopCategory.parent != null and
+                condition.shopCategory.id != null">
                 and
                     s.shop_category_id
                 in
                 (
                     select
-                        shop_category_id
+                        id
                     from
-                        tb_shop_category
+                        t_shop_category
                     where
-                        parent_id = #{shopCondition.shopCategory.parent.shopCategoryId}
+                        parent_id = #{condition.shopCategory.parent.id}
                 )
             </if>
-            <if test="shopCondition.area != null and shopCondition.area.areaId != null">
-                and s.area_id = #{shopCondition.area.areaId}
+            <if test="condition.area != null and condition.area.id != null">
+                and s.area_id = #{shopCondition.area.id}
             </if>
-            <if test="shopCondition.shopName != null">
-                and s.shop_name like '%${shopCondition.shopName}'
+            <if test="condition.name != null">
+                and s.name like '%${condition.name}'
             </if>
-            <if test="shopCondition.enableStatus != null">
+            <if test="condition.enableStatus != null">
                 and s.enable_status= #{shopCondition.enableStatus}
             </if>
-            <if test="shopCondition.user != null and shopCondition.user.userId != null">
-                and s.owner_id = #{shopCondition.user.userId}
+            <if test="shopCondition.user != null and shopCondition.user.id != null">
+                and s.creator_id = #{shopCondition.user.id}
             </if>
             and
-                s.area_id = a.area_id
+                s.area_id = a.id
             and
-                s.shop_category_id = sc.shop_category_id
+                s.shop_category_id = sc.id
         </where>
         order by
         priority
@@ -89,34 +82,33 @@
     </select>
     <select id="queryAllShop" resultMap="shopMap">
         select
-            s.shop_id,
-            s.shop_name,
-            s.shop_description,
-            s.shop_address,
+            s.id,
+            s.name,
+            s.desc,
+            s.address,
             s.phone,
-            s.shop_image,
+            s.img_url,
             s.priority,
             s.create_time,
             s.last_edit_time,
             s.enable_status,
-            s.advice,
-            a.area_id,
-            a.area_name,
-            sc.shop_category_id,
-            sc.shop_category_name,
-            u.user_id,
+            a.id,
+            a.name,
+            sc.id,
+            sc.name,
+            u.id,
             u.name
         FROM
-            tb_shop s,
-            tb_area a,
-            tb_shop_category sc,
-            tb_user u
+            t_shop s,
+            t_area a,
+            t_shop_category sc,
+            t_user u
         where
-            s.area_id = a.area_id
+            s.area_id = a.id
         and
-            s.shop_category_id = sc.shop_category_id
+            s.shop_category_id = sc.id
         and
-            s.owner_id = u.user_id
+            s.creator_id = u.id
         order by
             priority
         desc
@@ -124,98 +116,94 @@
     </select>
     <select id="queryShopById" resultMap="shopMap">
         select
-        s.shop_id,
-        s.shop_name,
-        s.shop_description,
-        s.shop_address,
+        s.id,
+        s.name,
+        s.desc,
+        s.address,
         s.phone,
-        s.shop_image,
+        s.img_url,
         s.priority,
         s.create_time,
         s.last_edit_time,
         s.enable_status,
-        s.advice,
-        a.area_id,
-        a.area_name,
-        sc.shop_category_id,
-        sc.shop_category_name,
+        a.id,
+        a.name,
+        sc.id,
+        sc.name,
         u.name,
-        u.user_id
+        u.id
         FROM
-        tb_shop s,
-        tb_area a,
-        tb_shop_category sc,
-        tb_user u
+        t_shop s,
+        t_area a,
+        t_shop_category sc,
+        t_user u
         WHERE
-        s.area_id = a.area_id
+        s.area_id = a.id
         and
-        s.shop_category_id = sc.shop_category_id
+        s.shop_category_id = sc.id
         and
-        s.owner_id = u.user_id
+        s.owner_id = u.id
         and
-        s.shop_id = #{shopId}
+        s.id = #{id}
     </select>
-    <insert id="registerShop" parameterType="Shop" useGeneratedKeys="true" keyColumn="shop_id" keyProperty="shopId">
+    <insert id="registerShop" parameterType="cn.qingweico.entity.Shop">
         insert into
-        tb_shop
+        t_shop
         (
-        shop_id,
-        owner_id,
+        id,
+        creator_id,
         area_id,
         shop_category_id,
-        shop_name,
-        shop_description,
-        shop_address,
+        name,
+        `desc`,
+        address,
         phone,
-        shop_image,
+        img_url,
         priority,
         create_time,
         last_edit_time,
         enable_status,
-        advice
         )
         values
         (
-        #{shopId},
-        #{user.userId},
-        #{area.areaId},
-        #{shopCategory.shopCategoryId},
-        #{shopName},
-        #{shopDescription},
-        #{shopAddress},
+        #{id},
+        #{creatorId},
+        #{areaId},
+        #{shopCategory.id},
+        #{name},
+        #{desc},
+        #{address},
         #{phone},
-        #{shopImage},
+        #{img_url},
         #{priority},
         #{createTime},
         #{lastEditTime},
-        #{enableStatus},
-        #{advice}
+        #{enableStatus}
         );
     </insert>
-    <update id="updateShop" parameterType="Shop">
-        update tb_shop
+    <update id="updateShop" parameterType="cn.qingweico.entity.Shop">
+        update t_shop
         <set>
-            <if test="area != null">area_id = #{area.areaId},</if>
-            <if test="shopCategory != null">shop_category_id = #{shopCategory.shopCategoryId},</if>
-            <if test="shopName != null">shop_name = #{shopName},</if>
-            <if test="shopDescription != null">shop_description = #{shopDescription},</if>
-            <if test="shopAddress != null">shop_address = #{shopAddress},</if>
+            <if test="areaId != null">area_id = #{areaId},</if>
+            <if test="shopCategory != null">shop_category_id = #{shopCategory.id},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="desc != null">desc = #{desc},</if>
+            <if test="address != null">address = #{address},</if>
             <if test="phone != null">phone = #{phone},</if>
-            <if test="shopImage != null">shop_image = #{shopImage},</if>
+            <if test="imgUrl != null">img_url = #{imgUrl},</if>
             <if test="priority != null">priority = #{priority},</if>
             <if test="lastEditTime != null">last_edit_time = #{lastEditTime},</if>
             <if test="enableStatus != null">enable_status = #{enableStatus},</if>
-            <if test="advice != null">advice = #{advice}</if>
         </set>
         where
-        shop_id = #{shopId};
+        id = #{id};
     </update>
     <update id="updateShopStatus" parameterType="int">
         update
-        tb_shop
+        t_shop
         set
         enable_status = #{enableStatus}
         where
-        shop_id = #{shopId}
+        id = #{id}
     </update>
 </mapper>

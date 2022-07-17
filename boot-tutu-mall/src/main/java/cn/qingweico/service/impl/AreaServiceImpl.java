@@ -1,7 +1,7 @@
 package cn.qingweico.service.impl;
 
 
-import cn.qingweico.cache.JedisUtil;
+import cn.qingweico.utils.JedisUtil;
 import cn.qingweico.dao.AreaDao;
 import cn.qingweico.dto.AreaExecution;
 import cn.qingweico.entity.Area;

@@ -20,8 +20,8 @@ public interface UserConsumptionRecordDao {
      * @param pageSize              每页数量
      * @return List<UserProductMap>
      */
-    List<UserConsumptionRecord> queryUserProductMapList(@Param("userConsumptionRecord") UserConsumptionRecord userConsumptionRecord,
-                                                        @Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
+    List<UserConsumptionRecord> queryUserConsumptionRecordList(@Param("condition") UserConsumptionRecord userConsumptionRecord,
+                                                               @Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
 
     /**
      * 添加一条用户消费记录
@@ -29,5 +29,5 @@ public interface UserConsumptionRecordDao {
      * @param userConsumptionRecord 用户消费记录
      * @return effectNum
      */
-    int insertUserProductMap(UserConsumptionRecord userConsumptionRecord);
+    int insertUserConsumptionRecord(UserConsumptionRecord userConsumptionRecord);
 }

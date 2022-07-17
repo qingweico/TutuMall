@@ -12,12 +12,12 @@ public interface UserReceivingAwardRecordService {
     /**
      * 根据传入的查询条件分页获取用户领取奖品记录列表
      *
-     * @param userAwardCondition 查询条件
+     * @param condition 查询条件
      * @param page               起始索引
      * @param pageSize           每页的数量
      * @return UserAwardMapExecution
      */
-    UserReceivingAwardRecordExecution listUserReceivedAwardRecord(UserReceivingAwardRecord userAwardCondition, Integer page, Integer pageSize);
+    UserReceivingAwardRecordExecution listUserReceivedAwardRecord(UserReceivingAwardRecord condition, Integer page, Integer pageSize);
 
     /**
      * 根据传入的id获取用户领取奖品信息

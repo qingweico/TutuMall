@@ -6,8 +6,8 @@ import java.util.Date;
 import java.util.UUID;
 
 /**
- * @author:qiming
- * @date: 2021/11/10
+ * @author zqw
+ * @date 2021/11/10
  */
 public class JwtUtils {
 
@@ -19,7 +19,6 @@ public class JwtUtils {
         return jwtBuilder.setHeaderParam("typ", "JWT")
                 .setHeaderParam("alg", "HS256")
                 .claim("username", username)
-                .claim("role", "admin")
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .setId(UUID.randomUUID().toString())
                 .signWith(SignatureAlgorithm.HS256, SIGNATURE)

@@ -20,7 +20,7 @@ public interface ProductDao {
      * @param pageSize         每页的商品数量
      * @return 商品列表
      */
-    List<Product> queryProductList(@Param("productCondition") Product productCondition, @Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
+    List<Product> queryProductList(@Param("condition") Product productCondition, @Param("rowIndex") int rowIndex, @Param("pageSize") int pageSize);
 
     /**
      * 添加新的商品

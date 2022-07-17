@@ -21,7 +21,7 @@ public interface AwardDao {
      * @param pageSize       每页数量
      * @return 奖品信息列表
      */
-    List<Award> queryAwardList(@Param("awardCondition") Award awardCondition,
+    List<Award> queryAwardList(@Param("condition") Award awardCondition,
                                @Param("rowIndex") int rowIndex,
                                @Param("pageSize") int pageSize);
 

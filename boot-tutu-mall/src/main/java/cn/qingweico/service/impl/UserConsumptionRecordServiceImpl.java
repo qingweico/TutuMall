@@ -47,7 +47,7 @@ public class UserConsumptionRecordServiceImpl implements UserConsumptionRecordSe
         // 页转行
         int beginIndex = PageCalculatorUtil.calculatorRowIndex(page, pageSize);
         // 依据查询条件分页取出列表
-        List<UserConsumptionRecord> userConsumptionRecordList = userConsumptionRecordDao.queryUserProductMapList(userProductCondition, beginIndex, pageSize);
+        List<UserConsumptionRecord> userConsumptionRecordList = userConsumptionRecordDao.queryUserConsumptionRecordList(userProductCondition, beginIndex, pageSize);
         UserConsumptionRecordExecution userProductMapExecution = new UserConsumptionRecordExecution();
         userProductMapExecution.setUserConsumptionRecordList(userConsumptionRecordList);
         return userProductMapExecution;
@@ -65,7 +65,7 @@ public class UserConsumptionRecordServiceImpl implements UserConsumptionRecordSe
     public UserConsumptionRecordExecution addUserConsumptionRecord(UserConsumptionRecord userConsumptionRecord) {
         userConsumptionRecord.setCreateTime(new Date());
         // 添加消费记录
-        int effectedNum = userConsumptionRecordDao.insertUserProductMap(userConsumptionRecord);
+        int effectedNum = userConsumptionRecordDao.insertUserConsumptionRecord(userConsumptionRecord);
         if (effectedNum <= 0) {
             return new UserConsumptionRecordExecution(UserConsumptionRecordStateEnum.INNER_ERROR);
         }

@@ -43,10 +43,10 @@ public interface ProductService {
     /**
      * 查询商品列表并分页
      *
-     * @param productCondition 查询条件: 店铺id 商品类别 商品状态 商品名称(模糊)
+     * @param condition 查询条件: 店铺id 商品类别 商品状态 商品名称(模糊)
      * @param page             起始的页码
      * @param pageSize         每页的数量
      * @return ProductExecution
      */
-    ProductExecution getProductList(Product productCondition, int page, int pageSize);
+    ProductExecution getProductList(Product condition, int page, int pageSize);
 }

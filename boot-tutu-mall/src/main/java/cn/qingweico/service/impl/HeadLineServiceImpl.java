@@ -1,6 +1,6 @@
 package cn.qingweico.service.impl;
 
-import cn.qingweico.cache.JedisUtil;
+import cn.qingweico.utils.JedisUtil;
 import cn.qingweico.dao.HeadLineDao;
 import cn.qingweico.dto.HeadLineExecution;
 import cn.qingweico.dto.ImageHolder;

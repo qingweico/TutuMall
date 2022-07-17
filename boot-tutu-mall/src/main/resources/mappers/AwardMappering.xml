@@ -7,7 +7,7 @@
 		SELECT
 		id,
 		name,
-		desc,
+		`desc`,
 		img_url,
 		point,
 		priority,
@@ -23,7 +23,7 @@
 				and name like '%${condition.name}%'
 			</if>
 			<!-- 按店铺查询 -->
-			<if test="condition.shopId!=null">
+			<if test="condition.id!=null">
 				and shop_id = #{condition.shopId}
 			</if>
 			<!-- 按可用状态查询 -->
@@ -39,7 +39,7 @@
 	<select id="queryAwardById" resultType="cn.qingweico.entity.Award" parameterType="Long">
 		SELECT id,
 		       name,
-			desc,
+			`desc`,
 			img_url,
 			point,
 			priority,
@@ -48,13 +48,13 @@
 			enable_status,
 			shop_id
 		FROM t_award
-		WHERE award_id = #{awardId}
+		WHERE id = #{id}
 	</select>
 	<insert id="insertAward" parameterType="cn.qingweico.entity.Award">
 		INSERT INTO t_award
 		(id
 			 name,
-		 desc,
+		 `desc`,
 		 img_url,
 		 point,
 		 priority,
@@ -77,7 +77,7 @@
 		UPDATE
 		t_award
 		<set>
-			<if test="name != null">award_name = #{name},</if>
+			<if test="name != null">name = #{name},</if>
 			<if test="desc != null">desc = #{desc},</if>
 			<if test="imgUrl != null">img_url = #{imgUrl},</if>
 			<if test="point != null">point = #{point},</if>
@@ -86,7 +86,7 @@
 			<if test="enableStatus != null">enable_status = #{enableStatus}</if>
 		</set>
 		WHERE
-		id = #{awardId}
+		id = #{id}
 		AND
 		shop_id = #{shopId}
 

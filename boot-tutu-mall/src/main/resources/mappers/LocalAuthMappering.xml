@@ -1,110 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.qingweico.dao.LocalAuthDao">
-    <resultMap id="localAuthResultMap" type="LocalAuth">
-        <id column="local_auth_id" property="localAuthId"/>
-        <result column="username" property="username"/>
-        <result column="password" property="password"/>
-        <result column="create_time" property="createTime"/>
-        <result column="last_edit_time" property="lastEditTime"/>
-        <association property="user" column="user_id" javaType="User">
-            <id column="user_id" property="userId"/>
-            <result column="name" property="name"/>
-            <result column="gender" property="gender"/>
-            <result column="email" property="email"/>
-            <result column="profile_image" property="profileImage"/>
-            <result column="user_type" property="userType"/>
-            <result column="create_time" property="createTime"/>
-            <result column="last_edit_time" property="lastEditTime"/>
-            <result column="enable_status" property="enableStatus"/>
-        </association>
-    </resultMap>
-    <select id="queryLocalByUserNameAndPassword" resultMap="localAuthResultMap" parameterType="String">
-        SELECT
-            l.local_auth_id,
-            l.username,
-            l.password,
-            l.create_time,
-            l.last_edit_time,
-            u.user_id,
-            u.name,
-            u.gender,
-            u.email,
-            u.profile_image,
-            u.user_type,
-            u.create_time,
-            u.last_edit_time,
-            u.enable_status
-        FROM
-            tb_local_auth l
-        LEFT JOIN
-            tb_user u
-        ON
-            l.user_id = u.user_id
-        WHERE
-            l.username = #{username}
-        AND
-            l.password = #{password}
-    </select>
-    <select id="queryLocalByUserId" resultMap="localAuthResultMap" parameterType="long">
-        SELECT
-            l.local_auth_id,
-            l.username,
-            l.password,
-            l.create_time,
-            l.last_edit_time,
-            u.user_id,
-            u.name,
-            u.gender,
-            u.email,
-            u.profile_image,
-            u.user_type,
-            u.create_time,
-            u.last_edit_time,
-            u.enable_status
-        FROM
-            tb_local_auth l
-        LEFT JOIN
-            tb_user u
-        ON
-            l.user_id = u.user_id
-        WHERE
-            l.user_id = #{userId}
-    </select>
-    <insert id="insertLocalAuth" parameterType="LocalAuth"
-            useGeneratedKeys="true" keyProperty="localAuthId" keyColumn="local_auth_id">
-        INSERT INTO
-        tb_local_auth
-        (
-            username,
-            password,
-            user_id,
-            create_time,
-            last_edit_time
-        )
-        VALUES
-        (
-            #{username},
-            #{password},
-            #{user.userId},
-            #{createTime},
-            #{lastEditTime}
-        )
-    </insert>
-    <update id="updateLocalAuth">
-        update
-            tb_local_auth
-        <set>
-            <if test="newPassword != null">password = #{newPassword},</if>
-            <if test="lastEditTime != null">last_edit_time = #{lastEditTime}</if>
-        </set>
-        where
-            user_id = #{userId}
-        AND
-            username = #{username}
-        AND
-            password = #{password}
-    </update>
+	<resultMap id="localAuthResultMap" type="cn.qingweico.entity.LocalAuth">
+		<id column="id" property="id"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="create_time" property="createTime"/>
+		<result column="last_edit_time" property="lastEditTime"/>
+		<association property="user" column="user_id" javaType="cn.qingweico.entity.User">
+			<id column="id" property="id"/>
+			<result column="name" property="name"/>
+			<result column="gender" property="gender"/>
+			<result column="email" property="email"/>
+			<result column="avatar" property="avatar"/>
+			<result column="user_type" property="userType"/>
+			<result column="create_time" property="createTime"/>
+			<result column="last_edit_time" property="lastEditTime"/>
+			<result column="enable_status" property="enableStatus"/>
+		</association>
+	</resultMap>
+	<select id="queryLocalByUserNameAndPassword" resultMap="localAuthResultMap" parameterType="String">
+		SELECT l.id,
+		       l.username,
+		       l.password,
+		       l.create_time,
+		       l.last_edit_time,
+		       u.id,
+		       u.name,
+		       u.gender,
+		       u.email,
+		       u.avatar,
+		       u.user_type,
+		       u.create_time,
+		       u.last_edit_time,
+		       u.enable_status
+		FROM t_local_auth l
+			     LEFT JOIN
+		     t_user u
+		     ON
+			     l.user_id = u.id
+		WHERE l.username = #{username}
+		  AND l.password = #{password}
+	</select>
+	<select id="queryLocalByUserId" resultMap="localAuthResultMap" parameterType="long">
+		SELECT l.id,
+		       l.username,
+		       l.password,
+		       l.create_time,
+		       l.last_edit_time,
+		       u.id,
+		       u.name,
+		       u.gender,
+		       u.email,
+		       u.avatar,
+		       u.user_type,
+		       u.create_time,
+		       u.last_edit_time,
+		       u.enable_status
+		FROM t_local_auth l
+			     LEFT JOIN
+		     t_user u
+		     ON
+			     l.user_id = u.id
+		WHERE l.user_id = #{userId}
+	</select>
+	<insert id="insertLocalAuth" parameterType="cn.qingweico.entity.LocalAuth">
+		INSERT INTO t_local_auth
+		(id,
+		 username,
+		 password,
+		 user_id,
+		 create_time,
+		 last_edit_time)
+		VALUES (#{id},
+		        #{username},
+		        #{password},
+		        #{user.userId},
+		        #{createTime},
+		        #{lastEditTime})
+	</insert>
+	<update id="updateLocalAuth">
+		update
+		t_local_auth
+		<set>
+			<if test="newPassword != null">password = #{newPassword},</if>
+			<if test="lastEditTime != null">last_edit_time = #{lastEditTime}</if>
+		</set>
+		where
+		user_id = #{userId}
+		AND
+		username = #{username}
+		AND
+		password = #{password}
+	</update>
 </mapper>

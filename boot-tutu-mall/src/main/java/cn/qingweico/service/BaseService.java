@@ -1,7 +1,7 @@
 package cn.qingweico.service;
 
 
-import cn.qingweico.cache.JedisUtil;
+import cn.qingweico.utils.JedisUtil;
 
 import javax.annotation.Resource;
 import java.util.Set;

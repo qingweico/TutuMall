@@ -1,12 +1,10 @@
 package cn.qingweico.config;
 
-import cn.qingweico.cache.JedisPoolWriter;
-import cn.qingweico.cache.JedisUtil;
+import cn.qingweico.utils.JedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
 import org.springframework.context.annotation.Configuration;
-import redis.clients.jedis.JedisPoolConfig;
 
 /**
  * @author 周庆伟
@@ -19,9 +17,9 @@ public class RedisConfig {
     @Autowired
     private RedisConstant redisConstant;
     @Autowired
-    private JedisPoolConfig jedisPoolConfig;
+    private redis.clients.jedis.JedisPoolConfig jedisPoolConfig;
     @Autowired
-    private JedisPoolWriter jedisWritePool;
+    private JedisPoolConfig jedisWritePool;
     @Autowired
     private JedisUtil jedisUtil;
 
@@ -31,8 +29,8 @@ public class RedisConfig {
      * @return JedisPoolConfig
      */
     @Bean(name = "jedisPoolConfig")
-    public JedisPoolConfig createJedisPoolConfig() {
-        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+    public redis.clients.jedis.JedisPoolConfig createJedisPoolConfig() {
+        redis.clients.jedis.JedisPoolConfig jedisPoolConfig = new redis.clients.jedis.JedisPoolConfig();
         jedisPoolConfig.setMaxTotal(Integer.parseInt(redisConstant.getPool().get("maxActive")));
         jedisPoolConfig.setMaxIdle(Integer.parseInt(redisConstant.getPool().get("maxIdle")));
         jedisPoolConfig.setMaxWaitMillis(Integer.parseInt(redisConstant.getPool().get("maxWait")));
@@ -45,8 +43,8 @@ public class RedisConfig {
      * @return JedisPoolWriter
      */
     @Bean(name = "jedisWriterPool")
-    public JedisPoolWriter createJedisPoolWriter() {
-        return new JedisPoolWriter(jedisPoolConfig,
+    public JedisPoolConfig createJedisPoolWriter() {
+        return new JedisPoolConfig(jedisPoolConfig,
                                    redisConstant.getHost(),
                                    redisConstant.getPort(),
                                    redisConstant.getTimeout(),

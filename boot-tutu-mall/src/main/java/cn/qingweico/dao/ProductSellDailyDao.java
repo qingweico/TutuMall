@@ -23,7 +23,7 @@ public interface ProductSellDailyDao {
      * @return 商品日销售的统计列表
      */
     List<ProductSellDaily> queryProductSellDailyList(
-            @Param("productSellDailyCondition") ProductSellDaily productSellDailyCondition,
+            @Param("condition") ProductSellDaily productSellDailyCondition,
             @Param("beginTime") Date beginTime, @Param("endTime") Date endTime);
 
     /**

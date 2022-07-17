@@ -1,164 +1,148 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.qingweico.dao.ProductDao">
-    <resultMap id="productMap" type="Product">
-        <id column="product_id" property="productId"/>
-        <result column="product_name" property="productName"/>
-        <result column="product_description" property="productDescription"/>
-        <result column="image_address" property="imageAddress"/>
-        <result column="normal_price" property="normalPrice"/>
-        <result column="promotion_price" property="promotionPrice"/>
-        <result column="priority" property="priority"/>
-        <result column="point" property="point"/>
-        <result column="create_time" property="createTime"/>
-        <result column="last_edit_time" property="lastEditTime"/>
-        <result column="enable_state" property="enableStatus"/>
-        <association property="productCategory" column="product_category_id" javaType="ProductCategory">
-            <id column="product_category_id" property="productCategoryId"/>
-            <result column="product_category_name" property="productCategoryName"/>
-        </association>
-        <association property="shop" column="shop_id" javaType="Shop">
-            <id column="shop_id" property="shopId"/>
-            <result column="owner_id" property="user.userId"/>
-            <result column="shop_name" property="shopName"/>
-        </association>
-        <collection property="productImageList" column="product_id" ofType="ProductImage">
-            <id column="product_image_id" property="productImageId"/>
-            <result column="detail_address" property="imageAddress"/>
-            <result column="image_description" property="imageDescription"/>
-            <result column="priority" property="priority"/>
-            <result column="create_time" property="createTime"/>
-            <result column="product_id" property="productId"/>
-        </collection>
-    </resultMap>
-    <insert id="insertProduct" parameterType="Product" useGeneratedKeys="true" keyProperty="productId"
-            keyColumn="product_id">
-        insert into
-        tb_product
-        (
-            product_name,
-            product_description,
-            image_address,
-            normal_price,
-            promotion_price,
-            priority,
-            point,
-            create_time,
-            last_edit_time,
-            enable_status,
-            product_category_id,
-            shop_id
-        )
-        values
-        (
-            #{productName},
-            #{productDescription},
-            #{imageAddress},
-            #{normalPrice},
-            #{promotionPrice},
-            #{priority},
-            #{point},
-            #{createTime},
-            #{lastEditTime},
-            #{enableStatus},
-            #{productCategory.productCategoryId},
-            #{shop.shopId}
-        );
-    </insert>
-    <select id="queryProductById" resultMap="productMap">
-        select
-            p.product_id,
-            p.product_name,
-            p.product_description,
-            p.image_address,
-            p.normal_price,
-            p.promotion_price,
-            p.priority,
-            p.point,
-            p.create_time,
-            p.last_edit_time,
-            p.enable_status,
-            p.product_category_id,
-            p.shop_id,
-            pi.product_image_id,
-            pi.image_address AS detail_address,
-            pi.image_description,
-            pi.priority,
-            pi.create_time
-        from
-            tb_product p
-        left join
-            tb_product_image pi
-        on
-            p.product_id = pi.product_id
-        where
-            p.product_id = #{productId}
-        order by
-            pi.priority
-        desc
-    </select>
-    <update id="updateProduct" parameterType="Product" keyProperty="product_id" useGeneratedKeys="true">
-        update tb_product
-        <set>
-            <if test="productName != null">product_name = #{productName},</if>
-            <if test="productDescription != null">product_description = #{productDescription},</if>
-            <if test="imageAddress != null">image_address = #{imageAddress},</if>
-            <if test="normalPrice != null">normal_price = #{normalPrice},</if>
-            <if test="promotionPrice != null">promotion_price = #{promotionPrice},</if>
-            <if test="priority != null">priority = #{priority},</if>
-            <if test="point != null">point = #{point},</if>
-            <if test="enableStatus != null">enable_status = #{enableStatus},</if>
-            <if test="productCategory != null and productCategory.productCategoryId != null">
-                product_category_id = #{productCategory.productCategoryId}
-            </if>
-        </set>
-        where
-        product_id = #{productId}
-        and
-        shop_id = #{shop.shopId};
-    </update>
-    <select id="queryProductList" resultType="cn.qingweico.entity.Product">
-        select
-            product_id,
-            product_name,
-            product_description,
-            image_address,
-            normal_price,
-            promotion_price,
-            priority,
-            point,
-            create_time,
-            last_edit_time,
-            enable_status,
-            shop_id,
-            product_category_id
-        from
-        tb_product
-        <where>
-            <if test="productCondition.shop != null and productCondition.shop.shopId != null">
-                and shop_id = #{productCondition.shop.shopId}
-            </if>
-            <if test="productCondition.productCategory != null and productCondition.productCategory.productCategoryId != null">
-                and product_category_id = #{productCondition.productCategory.productCategoryId}
-            </if>
-            <if test="productCondition.productName != null">
-                and product_name like '%${productCondition.productName}%'
-            </if>
-            <if test="productCondition.enableStatus != null">
-                and enable_status = #{productCondition.enableStatus}
-            </if>
-        </where>
-        order by
-        priority
-        desc
-        limit #{rowIndex},#{pageSize};
-    </select>
-    <update id="updateProductCategoryToNull">
-        update
-        tb_product
-        set
-        product_category_id = null
-        where
-        product_category_id = #{productCategoryId}
-    </update>
+	<resultMap id="productMap" type="cn.qingweico.entity.Product">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="desc" property="desc"/>
+		<result column="img_url" property="imgUrl"/>
+		<result column="normal_price" property="normalPrice"/>
+		<result column="promotion_price" property="promotionPrice"/>
+		<result column="priority" property="priority"/>
+		<result column="point" property="point"/>
+		<result column="create_time" property="createTime"/>
+		<result column="last_edit_time" property="lastEditTime"/>
+		<result column="enable_state" property="enableStatus"/>
+		<result column="shop_id" property="shopId"/>
+		<association property="productCategory" column="product_category_id"
+		             javaType="cn.qingweico.entity.ProductCategory">
+			<id column="id" property="id"/>
+			<result column="name" property="name"/>
+		</association>
+		<collection property="productImageList" column="product_id" ofType="cn.qingweico.entity.ProductImage">
+			<id column="id" property="id"/>
+			<result column="img_url" property="imgUrl"/>
+			<result column="priority" property="priority"/>
+			<result column="create_time" property="createTime"/>
+			<result column="product_id" property="productId"/>
+		</collection>
+	</resultMap>
+	<insert id="insertProduct" parameterType="cn.qingweico.entity.Product">
+		insert into t_product
+		(id,
+		 name,
+		 `desc`,
+		 img_url,
+		 normal_price,
+		 promotion_price,
+		 priority,
+		 point,
+		 create_time,
+		 last_edit_time,
+		 enable_status,
+		 product_category_id,
+		 shop_id)
+		values (#{id},
+		        #{name},
+		        #{desc},
+		        #{imgUrl},
+		        #{normalPrice},
+		        #{promotionPrice},
+		        #{priority},
+		        #{point},
+		        #{createTime},
+		        #{lastEditTime},
+		        #{enableStatus},
+		        #{productCategory.id},
+		        #{shop.id});
+	</insert>
+	<select id="queryProductById" resultMap="productMap">
+		select p.id,
+		       p.name,
+		       p.desc,
+		       p.img_url,
+		       p.normal_price,
+		       p.promotion_price,
+		       p.priority,
+		       p.point,
+		       p.create_time,
+		       p.last_edit_time,
+		       p.enable_status,
+		       p.product_category_id,
+		       p.shop_id,
+		       pi.id,
+		       pi.img_url AS detail_address,
+		       pi.priority,
+		       pi.create_time
+		from t_product p
+			     left join
+		     t_product_image pi
+		     on
+			     p.id = pi.product_id
+		where p.id = #{id}
+		order by pi.priority
+				desc
+	</select>
+	<update id="updateProduct" parameterType="cn.qingweico.entity.Product">
+		update t_product
+		<set>
+			<if test="name != null">name = #{name},</if>
+			<if test="desc != null">desc = #{desc},</if>
+			<if test="img_url != null">img_url = #{img_url},</if>
+			<if test="normalPrice != null">normal_price = #{normalPrice},</if>
+			<if test="promotionPrice != null">promotion_price = #{promotionPrice},</if>
+			<if test="priority != null">priority = #{priority},</if>
+			<if test="point != null">point = #{point},</if>
+			<if test="enableStatus != null">enable_status = #{enableStatus},</if>
+			<if test="productCategory != null and productCategory.id != null">
+				product_category_id = #{productCategory.id}
+			</if>
+		</set>
+		where
+		id = #{id}
+		and
+		shop_id = #{shop.id};
+	</update>
+	<select id="queryProductList" resultType="cn.qingweico.entity.Product">
+		select
+		id,
+		name,
+		`desc`,
+		img_url,
+		normal_price,
+		promotion_price,
+		priority,
+		point,
+		create_time,
+		last_edit_time,
+		enable_status,
+		shop_id,
+		product_category_id
+		from
+		t_product
+		<where>
+			<if test="condition.shop != null and condition.shop.id != null">
+				and shop_id = #{productCondition.shop.id}
+			</if>
+			<if test="condition.productCategory != null and condition.productCategory.id != null">
+				and product_category_id = #{condition.productCategory.id}
+			</if>
+			<if test="condition.name != null">
+				and name like '%${condition.name}%'
+			</if>
+			<if test="condition.enableStatus != null">
+				and enable_status = #{condition.enableStatus}
+			</if>
+		</where>
+		order by
+		priority
+		desc
+		limit #{rowIndex},#{pageSize};
+	</select>
+	<update id="updateProductCategoryToNull">
+		update
+			t_product
+		set product_category_id = null
+		where product_category_id = #{productCategoryId}
+	</update>
 </mapper>
